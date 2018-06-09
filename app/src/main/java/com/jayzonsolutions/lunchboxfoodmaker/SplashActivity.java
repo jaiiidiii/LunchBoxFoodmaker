@@ -19,7 +19,7 @@ public class SplashActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    Intent welcomeIntent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent welcomeIntent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(welcomeIntent);
                 }
             }
