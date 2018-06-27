@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.jayzonsolutions.lunchboxfoodmaker.Service.ApiUtils;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.CustomerService;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Address;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Customer;
 import com.jayzonsolutions.lunchboxfoodmaker.model.CustomerAddress;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
@@ -47,7 +49,7 @@ public class signup extends AppCompatActivity implements Validator.ValidationLis
 
 
 
-    private CustomerService customerService;
+    private FoodmakerService foodmakerService;
 
 
     @Override
@@ -67,7 +69,7 @@ public class signup extends AppCompatActivity implements Validator.ValidationLis
         final Validator validator = new Validator(this);
         validator.setValidationListener(this);
 
-        customerService =  ApiUtils.getCustomerService();
+        foodmakerService =  ApiUtils.getFoodmakerService();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +101,22 @@ public class signup extends AppCompatActivity implements Validator.ValidationLis
         String userPhoneTxt =userPhone.getText().toString();
         String userAddressTxt =userAddress.getText().toString();
 
-        CustomerAddress customerAddress = new CustomerAddress(userAddressTxt,"  Karachi");
+        Address address = new Address();
+        address.setAddress(userAddressTxt);
+        address.setCity("Karachi");
 
-        Customer customer = new Customer(fnameTxt,userEmailTxt,userPasswordTxt,userCnicTxt,userPhoneTxt,"1",customerAddress);
+        Foodmaker foodmaker = new Foodmaker();
+        foodmaker.setFoodmakerName(fnameTxt);
+        foodmaker.setFoodmakerEmail(userEmailTxt);
+        foodmaker.setFoodmakerpassword(userPasswordTxt);
+        foodmaker.setFoodmakerNic(userCnicTxt);
+        foodmaker.setFoodmakerPhoneNumber(userPhoneTxt);
+        foodmaker.setFoodmakerAddresId(address);
+        foodmaker.setFoodmakerAccessType(1);
 
 
-        Log.d("myTag", customer.getCustomerAccessType());
-        customerService.customerSignup(customer).enqueue(new Callback<ApiResponse>(){
+
+        foodmakerService.foodmakerSignup(foodmaker).enqueue(new Callback<ApiResponse>(){
 
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {

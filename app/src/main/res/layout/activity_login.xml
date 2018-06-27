@@ -20,6 +20,30 @@
             android:textColor="@color/dark_blue"
             android:textSize="25sp" />
 
+
+        <customfonts.MyTextView
+            android:id="@+id/btnAddDish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="150dp"
+            android:gravity="center"
+            android:text="Add Dishies"
+            android:textColor="@color/dark_blue"
+            android:textSize="25sp" />
+
+
+        <customfonts.MyTextView
+            android:id="@+id/btnTestActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Test ACctivity"
+            android:textColor="@color/dark_blue"
+            android:textSize="25sp" />
+
         <customfonts.MyTextView
             android:id="@+id/account"
             android:layout_width="match_parent"

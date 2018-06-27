@@ -24,4 +24,16 @@
     <string name="userphone">Phone Number</string>
     <string name="useraddress">Full Address</string>
 
+
+    <!--add dish activity-->
+    <string name="hint_dishName">Dish Name</string>
+    <string name="hint_dishDescription">Dish Description</string>
+    <string name="hint_dishPrice">Dish Price</string>
+
+
+    <string name="registerDish">Add</string>
+
+    <string name="dishCatSpinner">Dish Catagory</string>
+
+
 </resources>

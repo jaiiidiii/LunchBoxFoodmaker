@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.Service.APIService;
-import com.jayzonsolutions.lunchboxfoodmaker.Service.ApiUtils;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
 
 import customfonts.MyEditText;
@@ -23,7 +23,13 @@ public class signin extends AppCompatActivity {
 
     ImageView sback;
     MyTextView login;
-    private APIService mAPIService;
+
+    MyEditText userEmail;
+    MyEditText userPassword;
+
+
+
+    private FoodmakerService foodmakerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +38,20 @@ public class signin extends AppCompatActivity {
         sback = findViewById(R.id.sinb);
         login = findViewById(R.id.sin);
 
-        mAPIService = ApiUtils.getAPIService();
+        userEmail = findViewById(R.id.userEmail);
+        userPassword = findViewById(R.id.userPassword);
+
+        String userEmailStr = userEmail.getText().toString();
+        String userPasswordStr = userPassword.getText().toString();
+
+        foodmakerService = ApiUtils.getFoodmakerService();
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-              //  Toast.makeText(signin.this,"clicked",Toast.LENGTH_LONG).show();
-              //api call
-             /*   if(validate())
-                {
-                    mAPIService.savePost("sohail@gmail.com", "123456").enqueue(new Callback<ApiResponse>() {
+            //    if(validate()){
+                foodmakerService.foodmakerLogin(userEmail.getText().toString(), userPassword.getText().toString()).enqueue(new Callback<ApiResponse>() { //email:foodmakernew@gmail.com pass:testtest
                         @Override
                         public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 
@@ -54,11 +64,11 @@ public class signin extends AppCompatActivity {
 
                         }
                     });
-                }
+          //      }
                 //api call end
-*/
-                Intent intent = new Intent(signin.this,MainActivity.class);
-                startActivity(intent);
+
+//                Intent intent = new Intent(signin.this,MainActivity.class);
+//                startActivity(intent);
 
 
 
@@ -74,7 +84,7 @@ public class signin extends AppCompatActivity {
             }
         });
     }
-
+/*
     public boolean validate()
     {
         MyEditText name = (MyEditText)findViewById(R.id.usrusr);
@@ -100,7 +110,7 @@ public class signin extends AppCompatActivity {
         }
             return true;
     }
-
+*/
 
 
 
