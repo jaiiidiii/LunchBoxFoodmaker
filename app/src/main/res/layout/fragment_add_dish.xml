@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/newimg">
+<!--tools:context=".AddDish"    -->
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/timg">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!-- image upload -->
+        <!--<TextView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Select a picture and upload"-->
+            <!--/>-->
+        <!--<ImageView-->
+            <!--android:id="@android:id/icon"-->
+            <!--android:layout_width="fill_parent"-->
+             <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--/>-->
+            <!--<Button-->
+                <!--android:text="Select a photo"-->
+                <!--android:layout_width="fill_parent"-->
+               <!--android:layout_height="wrap_content"-->
+                <!--android:onClick="pickPhoto" />-->
+             <!--<Button android:text="Upload photo"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="uploadPhoto" />-->
+
+
+
+
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:background="@color/textColor" />-->
+
+        <!-- image upload -->
+
+
+        <!-- Text Label -->
+        <TextView
+
+
+            android:layout_marginTop="10dip"
+            android:text="Category:"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="22dp"
+            android:background="#0000"
+            android:padding="16dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
+            android:textSize="16sp"
+            />
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/dishCatSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/dishCatSpinner"
+            android:textSize="16sp"
+            android:padding="16dp"
+            />
+
+
+
+
+
+
+
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/textColor" />
+
+        <customfonts.MyEditText
+            android:id="@+id/dishName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="22dp"
+            android:background="#0000"
+            android:hint="@string/hint_dishName"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/textColor" />
+
+        <customfonts.MyEditText
+            android:id="@+id/dishPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="22dp"
+            android:background="#0000"
+            android:hint="@string/hint_dishPrice"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/textColor" />
+
+        <customfonts.MyEditText
+            android:id="@+id/dishDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="22dp"
+            android:background="#0000"
+            android:hint="@string/hint_dishDescription"
+
+            android:maxLines="7"
+            android:scrollbars="vertical"
+            android:maxLength="12"
+            android:padding="16dp"
+            android:textColor="@color/textColor"
+            android:textColorHint="@color/textColor"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/textColor" />
+
+
+        <customfonts.MyTextView
+            android:id="@+id/btnRegisterDish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/angle"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/registerDish"
+            android:textColor="@color/colorBackground"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>
+</FrameLayout>

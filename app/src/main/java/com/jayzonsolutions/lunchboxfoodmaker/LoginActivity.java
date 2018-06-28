@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class LoginActivity extends AppCompatActivity {
     TextView sin;
     LinearLayout circle;
-    TextView btnAddDish;
+
     TextView btnTestActivity;
 
     @Override
@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
         circle = findViewById(R.id.circle);
         sin = findViewById(R.id.sin);
-        btnAddDish = findViewById(R.id.btnAddDish);
+
         btnTestActivity = findViewById(R.id.btnTestActivity);
 
         circle.setOnClickListener(new View.OnClickListener() {
@@ -40,13 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-        btnAddDish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(LoginActivity.this,AddDish.class);
-                startActivity(it);
-            }
-        });
+
 
         btnTestActivity.setOnClickListener(new View.OnClickListener() {
             @Override

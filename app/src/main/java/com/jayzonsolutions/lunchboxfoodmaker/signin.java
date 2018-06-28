@@ -51,7 +51,7 @@ public class signin extends AppCompatActivity {
             public void onClick(View v) {
 
             //    if(validate()){
-                foodmakerService.foodmakerLogin(userEmail.getText().toString(), userPassword.getText().toString()).enqueue(new Callback<ApiResponse>() { //email:foodmakernew@gmail.com pass:testtest
+             /*   foodmakerService.foodmakerLogin(userEmail.getText().toString(), userPassword.getText().toString()).enqueue(new Callback<ApiResponse>() { //email:foodmakernew@gmail.com pass:testtest
                         @Override
                         public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 
@@ -63,12 +63,12 @@ public class signin extends AppCompatActivity {
                             Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
 
                         }
-                    });
+                    });*/
           //      }
                 //api call end
 
-//                Intent intent = new Intent(signin.this,MainActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(signin.this,MainActivity.class);
+                startActivity(intent);
 
 
 

@@ -1,5 +1,6 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -7,10 +8,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -35,8 +39,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddDish extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
 
+public class AddDish extends Fragment {
+
+    Context context = getContext();
     private DishService dishService;
     private FoodmakerDishesService foodmakerDishesService;
     Spinner spinner;
@@ -54,71 +61,66 @@ public class AddDish extends AppCompatActivity {
 
     public static int selectedItemId;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_dish);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v =  inflater.inflate(R.layout.fragment_add_dish, container, false);
 
 
-        imageView = (ImageView) findViewById(android.R.id.icon);
+
+        imageView =  v.findViewById(android.R.id.icon);
 
         // resources initialization
-        dishName = findViewById(R.id.dishName);
-        dishDescription = findViewById(R.id.dishDescription);
-        btnRegisterDish = findViewById(R.id.btnRegisterDish);
-        dishPrice = findViewById(R.id.dishPrice);
+        dishName = v.findViewById(R.id.dishName);
+        dishDescription = v.findViewById(R.id.dishDescription);
+        btnRegisterDish = v.findViewById(R.id.btnRegisterDish);
+        dishPrice = v.findViewById(R.id.dishPrice);
 
         // Spinner element
-        spinner = (Spinner) findViewById(R.id.dishCatSpinner);
+        spinner =  v.findViewById(R.id.dishCatSpinner);
         // Spinner click listener
 
 
 
 
 
-        /**
-         * get services */
-
         dishService = ApiUtils.getDishService();
         foodmakerDishesService = ApiUtils.getFoodmakerDishes();
 
 
-        /**
-         * get dishes for cob=mbo spinner
-         * start
-         * */
-        final List<String> categories = new ArrayList<String>();
-        final Map<String,Integer> categoriesKeyVlaue = new HashMap<String,Integer>();
+        final List<String> categories = new ArrayList<>();
+        final Map<String,Integer> categoriesKeyVlaue = new HashMap<>();
 
-        dishService.getDishList().enqueue(new Callback<List<Dish>>() {
-            @Override
-            public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
+        try {
+            dishService.getDishList().enqueue(new Callback<List<Dish>>() {
+                @Override
+                public void onResponse(Call<List<Dish>> call, Response<List<Dish>> response) {
 
-                for(Dish dish: response.body()) {
-                    categories.add(dish.getDishName());
-                    categoriesKeyVlaue.put(dish.getDishName(),dish.getDishId());
+                    for(Dish dish: response.body()) {
+                        categories.add(dish.getDishName());
+                        categoriesKeyVlaue.put(dish.getDishName(),dish.getDishId());
+                    }
+                    // Spinner Drop down elements
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categories);
+                    // Drop down layout style - list view with radio button
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    // attaching data adapter to spinner
+                    spinner.setAdapter(dataAdapter);
+                    dataAdapter.notifyDataSetChanged();
+
                 }
-                // Spinner Drop down elements
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(AddDish.this, android.R.layout.simple_spinner_item, categories);
-                // Drop down layout style - list view with radio button
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // attaching data adapter to spinner
-                spinner.setAdapter(dataAdapter);
-                dataAdapter.notifyDataSetChanged();
 
-            }
+                @Override
+                public void onFailure(@NonNull Call<List<Dish>> call, @NonNull Throwable t) {
+                    Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
 
-            @Override
-            public void onFailure(Call<List<Dish>> call, Throwable t) {
-                Toast.makeText(AddDish.this,"failed ",Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(context, "error: "+e, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
-            }
-        });
-
-
-        /**
-         * get dishes for cob=mbo spinner
-         * end
-         * */
 
 
         // spinner.setOnItemSelectedListener
@@ -156,25 +158,25 @@ public class AddDish extends AppCompatActivity {
 
                 foodmakerDishesService.addFoodmakerDishes(foodmakerDishes).enqueue(new Callback<ApiResponse>() {
                     @Override
-                    public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
 
-                        Toast.makeText(AddDish.this,""+response.body().getStatus(),Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(AddDish.this,LoginActivity.class);
+                        Toast.makeText(context,""+response.body().getStatus(),Toast.LENGTH_LONG).show();
+                        Intent it = new Intent(context,LoginActivity.class);
                         startActivity(it);
                     }
 
                     @Override
-                    public void onFailure(Call<ApiResponse> call, Throwable t) {
-                        Toast.makeText(AddDish.this,"failed ",Toast.LENGTH_LONG).show();
+                    public void onFailure(@NonNull Call<ApiResponse> call, @NonNull Throwable t) {
+                        Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
 
                     }
                 });
             }
         });
-
+return v;
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK) {
             Bitmap bitmap = getPath(data.getData());
@@ -184,7 +186,7 @@ public class AddDish extends AppCompatActivity {
     private Bitmap getPath(Uri uri) {
 
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        Cursor cursor = getActivity().managedQuery(uri, projection, null, null, null);
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
@@ -224,7 +226,7 @@ public class AddDish extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
 
             byte[] data = bos.toByteArray();
-            Toast.makeText(AddDish.this,"btye array = "+data,Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"btye array = "+data,Toast.LENGTH_LONG).show();
 
         }catch(Exception e) {
 
