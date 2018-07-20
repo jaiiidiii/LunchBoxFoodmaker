@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "261753571162",
+    "firebase_url": "https://lunchboxfoodmaker-b5218.firebaseio.com",
+    "project_id": "lunchboxfoodmaker-b5218",
+    "storage_bucket": "lunchboxfoodmaker-b5218.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261753571162:android:641dcb48618a3ac1",
+        "android_client_info": {
+          "package_name": "com.jayzonsolutions.lunchboxfoodmaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "261753571162-28n6htgo827mkhkutfd23f4abmsdink1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jayzonsolutions.lunchboxfoodmaker",
+            "certificate_hash": "9fc934fa6430e43df7a6eec58b96d9d05e651920"
+          }
+        },
+        {
+          "client_id": "261753571162-nmna7oqjqkbtfq98ku8o3e8df0i4doh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByA1ajc-l2XQGmIchKZjyP4JDZjoZXeag"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "261753571162-nmna7oqjqkbtfq98ku8o3e8df0i4doh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

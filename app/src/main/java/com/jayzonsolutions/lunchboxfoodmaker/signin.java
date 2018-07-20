@@ -1,14 +1,18 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.Service.APIService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.app.Config;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
 
 import customfonts.MyEditText;
@@ -23,7 +27,7 @@ public class signin extends AppCompatActivity {
 
     ImageView sback;
     MyTextView login;
-
+    String DeviceID;
     MyEditText userEmail;
     MyEditText userPassword;
 
@@ -45,7 +49,7 @@ public class signin extends AppCompatActivity {
         String userPasswordStr = userPassword.getText().toString();
 
         foodmakerService = ApiUtils.getFoodmakerService();
-
+        displayFirebaseRegId();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +116,19 @@ public class signin extends AppCompatActivity {
     }
 */
 
+    // Fetches reg id from shared preferences
+    // and displays on the screen
+    private void displayFirebaseRegId() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
 
+        Log.e("DeviceID", "Firebase reg id: " + regId);
+
+        if (!TextUtils.isEmpty(regId)) {
+            Toast.makeText(this, "Firebase Reg Id: " + regId, Toast.LENGTH_SHORT).show();
+            DeviceID = regId;
+        } else
+            Toast.makeText(this, "Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
+    }
 
 }

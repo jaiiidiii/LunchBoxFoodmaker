@@ -36,6 +36,6 @@
     <string name="dishCatSpinner">Dish Category</string>
 
     <string name="hello_blank_fragment">Hello blank fragment Orders</string>
-
+    <string name="default_notification_channel_id">Channel ID</string>
 
 </resources>

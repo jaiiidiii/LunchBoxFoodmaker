@@ -98,6 +98,9 @@ public class OrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
+        //junaid commit
+        /*
+
         foodmakerService.getDishesByFoodmakerId(id).enqueue(new Callback<List<FoodmakerDishes>>() {
             @Override
             public void onResponse(@NonNull Call<List<FoodmakerDishes>> call, @NonNull Response<List<FoodmakerDishes>> response) {
@@ -105,7 +108,8 @@ public class OrdersFragment extends Fragment {
 
                 foodmakerDishesList = response.body();
                 mAdapter.setFoodmakerDishesList(foodmakerDishesList);
- /*               for (FoodmakerDishes foodmakerDishes : response.body()) {
+ */
+/*               for (FoodmakerDishes foodmakerDishes : response.body()) {
                     Log.d("TAG", "Response = " + foodmakerDishes.getDish().getDishName());
 
                     Toast.makeText(getContext(), "success" + foodmakerDishes.getDish().getDishName(), Toast.LENGTH_SHORT).show();
@@ -113,7 +117,8 @@ public class OrdersFragment extends Fragment {
 
 
                 }
- */
+ *//*
+
 
 
             }
@@ -127,10 +132,13 @@ public class OrdersFragment extends Fragment {
 
 
 
-        /**
+        */
+/**
          *End
-         ** call to get foodmaker dishes**/
+         ** call to get foodmaker dishes**//*
 
+
+*/
 
  /*       btn = view.findViewById(R.id.btnDetail);
 
@@ -189,6 +197,9 @@ public class OrdersFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onBindViewHolder(@NonNull final RecycleAdapter_AddProduct.MyViewHolder holder, final int position) {
+
+            //junaid commit
+            /*
 //            Products movie = productsList.get(position);
 
             holder.title.setText(foodmakerDishesList.get(position).getDish().getDishName());
@@ -204,11 +215,11 @@ public class OrdersFragment extends Fragment {
             int totalPrice = holder.quantity * foodmakerDishesList.get(position).getDish().getDishSellingPrice();
 
 
-         /*   Glide.with(context).load(ApiUtils.BASE_URL+"images/es2.jpg").
+         *//*   Glide.with(context).load(ApiUtils.BASE_URL+"images/es2.jpg").
                     apply(RequestOptions.
                             centerCropTransform().fitCenter().
                             diskCacheStrategy(DiskCacheStrategy.ALL)).
-                    into(holder.image);*/
+                    into(holder.image);*//*
 
             if (position == recentPos) {
                 Log.e("pos", "" + recentPos);
@@ -258,9 +269,9 @@ public class OrdersFragment extends Fragment {
                         int foodmakerId = foodmakerDishesList.get(position).getFoodmakerid();
                         Constant.foodmakerdishes.put(foodmakerId,orderdishes);
 
-                        /**
+                        *//**
                          * cart item
-                         */
+                         *//*
 
 
 
@@ -301,7 +312,7 @@ public class OrdersFragment extends Fragment {
 
                 }
             });
-
+*/
 
         }
 
