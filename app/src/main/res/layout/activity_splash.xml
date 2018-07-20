@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/newimg"
-    tools:context="com.jayzonsolutions.lunchboxfoodmaker.SplashActivity">
+    android:background="@drawable/newimg">
 
-    <View
+
+    <ImageView
+        android:id="@+id/splashscreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/timg"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:layout_marginTop="56dp"
-        android:layout_centerHorizontal="true"/>
+        android:src="@drawable/timg"
+       />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,5 +23,42 @@
         android:text="Cook it"
         android:textSize="18dp"
         android:textColor="@android:color/white"
+        />
+</RelativeLayout>
+
+-->
+
+
+
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/newimg"
+  >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/timg"/>
+
+<!--    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_marginTop="56dp"
+        android:layout_centerHorizontal="true"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="lunchBox"
+        android:textSize="36sp"
+        android:textColor="@android:color/white"
+        android:textAllCaps="true"
+        android:textStyle="normal"
       />
 </RelativeLayout>

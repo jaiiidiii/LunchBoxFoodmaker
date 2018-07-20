@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:background="@color/white">
+    android:background="@color/white">
 
 
     <LinearLayout
@@ -19,7 +19,7 @@ android:background="@color/white">
 
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/imageProduct"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
@@ -39,7 +39,7 @@ android:background="@color/white">
             android:orientation="vertical">
 
             <customfonts.Medium_Textview
-                android:id="@+id/title"
+                android:id="@+id/titleProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -58,7 +58,7 @@ android:background="@color/white">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="$"
+                    android:text="Pkr"
                     android:textColor="#000000"
                     android:textSize="12sp" />
 
@@ -69,21 +69,19 @@ android:background="@color/white">
                     android:layout_gravity="bottom"
                     android:layout_marginStart="5dp"
                     android:gravity="bottom"
-                    android:text="Description"
+                    android:text="price"
                     android:textColor="#000000"
                     android:textSize="12sp" />
             </LinearLayout>
 
-
-
-            <RatingBar
-                android:id="@+id/overflow"
-                style="@android:style/Widget.Holo.RatingBar.Small"
+            <customfonts.Regular_Textview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:numStars="5"
-                android:rating="2.5" />
+                android:layout_marginTop="12dp"
+                android:maxLines="1"
+                android:text="delicious hommemade biryani"
+                android:textColor="@color/medium_text"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
