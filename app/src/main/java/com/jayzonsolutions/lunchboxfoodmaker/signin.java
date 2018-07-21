@@ -55,23 +55,23 @@ public class signin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-            //    if(validate()){
-              foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testest").enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
-                        @Override
-                        public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
+                //    if(validate()){
+                foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testest",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                    @Override
+                    public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
 
-                            Log.v("foodmaker id success ",response.body().getFoodmakerName());
-                            Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
-                        }
+                        Log.v("foodmaker id success ",response.body().getFoodmakerName());
+                        Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
+                    }
 
-                        @Override
-                        public void onFailure(Call<Foodmaker> call, Throwable t) {
-                            Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onFailure(Call<Foodmaker> call, Throwable t) {
+                        Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-          //      }
+                    }
+                });
+                //      }
                 //api call end
 
                 Intent intent = new Intent(signin.this,MainActivity.class);
@@ -135,3 +135,6 @@ public class signin extends AppCompatActivity {
     }
 
 }
+
+
+

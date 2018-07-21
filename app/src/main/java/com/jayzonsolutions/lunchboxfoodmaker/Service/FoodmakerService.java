@@ -19,7 +19,7 @@ public interface FoodmakerService {
 
     @POST("foodmaker/login")
     @FormUrlEncoded
-    Call<Foodmaker> foodmakerLogin(@Field("userName") String userName, @Field("password") String password);
+    Call<Foodmaker> foodmakerLogin(@Field("userName") String userName, @Field("password") String password,@Field("token") String token);
 
     @POST("foodmaker/signup")
     Call<ApiResponse> foodmakerSignup(@Body Foodmaker foodmaker);
