@@ -2,30 +2,32 @@ package com.jayzonsolutions.lunchboxfoodmaker.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 public class Address {
 
-    @SerializedName("addressId")
+    @SerializedName("id")
     @Expose
-    private Integer addressId;
+    private String id;
+
     @SerializedName("address")
     @Expose
     private String address;
+
     @SerializedName("city")
     @Expose
     private String city;
-    @SerializedName("addressPostalCode")
-    @Expose
-    private Object addressPostalCode;
-    @SerializedName("addressLastUpdated")
-    @Expose
-    private Integer addressLastUpdated;
 
-    public Integer getAddressId() {
-        return addressId;
+    public Address(String address, String city) {
+        this.address = address;
+        this.city = city;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAddress() {
@@ -44,19 +46,4 @@ public class Address {
         this.city = city;
     }
 
-    public Object getAddressPostalCode() {
-        return addressPostalCode;
-    }
-
-    public void setAddressPostalCode(Object addressPostalCode) {
-        this.addressPostalCode = addressPostalCode;
-    }
-
-    public Integer getAddressLastUpdated() {
-        return addressLastUpdated;
-    }
-
-    public void setAddressLastUpdated(Integer addressLastUpdated) {
-        this.addressLastUpdated = addressLastUpdated;
-    }
 }

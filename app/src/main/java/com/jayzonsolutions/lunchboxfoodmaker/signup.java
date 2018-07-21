@@ -13,7 +13,7 @@ import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Address;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Customer;
-import com.jayzonsolutions.lunchboxfoodmaker.model.CustomerAddress;
+//import com.jayzonsolutions.lunchboxfoodmaker.model.CustomerAddress;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -101,7 +101,7 @@ public class signup extends AppCompatActivity implements Validator.ValidationLis
         String userPhoneTxt =userPhone.getText().toString();
         String userAddressTxt =userAddress.getText().toString();
 
-        Address address = new Address();
+        Address address = new Address(userAddressTxt,"karachi");
         address.setAddress(userAddressTxt);
         address.setCity("Karachi");
 

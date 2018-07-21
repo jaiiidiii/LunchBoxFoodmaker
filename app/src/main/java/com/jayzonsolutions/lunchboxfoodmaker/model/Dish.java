@@ -3,9 +3,7 @@ package com.jayzonsolutions.lunchboxfoodmaker.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
 public class Dish {
-
     @SerializedName("dishId")
     @Expose
     private Integer dishId;
@@ -21,6 +19,26 @@ public class Dish {
     @SerializedName("dishImagePath")
     @Expose
     private String dishImagePath;
+
+    private Integer dishQuantity =0;
+
+    private String dishPriceAsPerQuantity;
+
+    public String getDishPriceAsPerQuantity() {
+        return dishPriceAsPerQuantity;
+    }
+
+    public void setDishPriceAsPerQuantity(String dishPriceAsPerQuantity) {
+        this.dishPriceAsPerQuantity = dishPriceAsPerQuantity;
+    }
+
+    public Integer getDishQuantity() {
+        return dishQuantity;
+    }
+
+    public void setDishQuantity(Integer dishQuantity) {
+        this.dishQuantity = dishQuantity;
+    }
 
     public Integer getDishId() {
         return dishId;
@@ -61,5 +79,4 @@ public class Dish {
     public void setDishImagePath(String dishImagePath) {
         this.dishImagePath = dishImagePath;
     }
-
 }

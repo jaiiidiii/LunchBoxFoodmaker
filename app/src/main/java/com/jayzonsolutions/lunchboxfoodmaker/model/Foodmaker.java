@@ -1,9 +1,7 @@
 package com.jayzonsolutions.lunchboxfoodmaker.model;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.Date;
-
 
 public class Foodmaker {
     @SerializedName("foodmakerId")
@@ -38,13 +36,16 @@ public class Foodmaker {
     private String foodmakerPhoneNumber;
     @SerializedName("foodmakerAdminId")
     @Expose
-    private Object foodmakerAdminId;
+    private Integer foodmakerAdminId;
     @SerializedName("foodmakerCreatedAt")
     @Expose
-    private Date foodmakerCreatedAt;
+    private String foodmakerCreatedAt;
     @SerializedName("foodmakerLastUpdated")
     @Expose
-    private Date foodmakerLastUpdated;
+    private String foodmakerLastUpdated;
+    @SerializedName("averageRatings")
+    @Expose
+    private Double averageRatings;
 
     public Integer getFoodmakerId() {
         return foodmakerId;
@@ -102,7 +103,7 @@ public class Foodmaker {
         this.foodmakerAccessType = foodmakerAccessType;
     }
 
-    public Object getFoodmakerImagePath() {
+    public String getFoodmakerImagePath() {
         return foodmakerImagePath;
     }
 
@@ -130,7 +131,7 @@ public class Foodmaker {
         return foodmakerAdminId;
     }
 
-    public void setFoodmakerAdminId(Object foodmakerAdminId) {
+    public void setFoodmakerAdminId(Integer foodmakerAdminId) {
         this.foodmakerAdminId = foodmakerAdminId;
     }
 
@@ -138,7 +139,7 @@ public class Foodmaker {
         return foodmakerCreatedAt;
     }
 
-    public void setFoodmakerCreatedAt(Date foodmakerCreatedAt) {
+    public void setFoodmakerCreatedAt(String foodmakerCreatedAt) {
         this.foodmakerCreatedAt = foodmakerCreatedAt;
     }
 
@@ -146,10 +147,16 @@ public class Foodmaker {
         return foodmakerLastUpdated;
     }
 
-    public void setFoodmakerLastUpdated(Date foodmakerLastUpdated) {
+    public void setFoodmakerLastUpdated(String foodmakerLastUpdated) {
         this.foodmakerLastUpdated = foodmakerLastUpdated;
     }
 
+    public Double getAverageRatings() {
+        return averageRatings;
+    }
 
+    public void setAverageRatings(Double averageRatings) {
+        this.averageRatings = averageRatings;
+    }
 
 }

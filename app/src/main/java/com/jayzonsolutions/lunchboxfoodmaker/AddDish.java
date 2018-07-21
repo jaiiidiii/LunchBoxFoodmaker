@@ -154,7 +154,7 @@ public class AddDish extends Fragment {
                 foodmakerDishes.setDescription(dishDescriptionData);
                 foodmakerDishes.setDishId(selectedItemId);
                 foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
-                foodmakerDishes.setPrice(dishPriceData);
+                foodmakerDishes.setPrice(33.33);
 
                 foodmakerDishesService.addFoodmakerDishes(foodmakerDishes).enqueue(new Callback<ApiResponse>() {
                     @Override

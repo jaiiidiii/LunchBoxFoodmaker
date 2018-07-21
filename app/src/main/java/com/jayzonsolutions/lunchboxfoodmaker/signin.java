@@ -14,6 +14,7 @@ import com.jayzonsolutions.lunchboxfoodmaker.Service.APIService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.app.Config;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 
 import customfonts.MyEditText;
 
@@ -55,19 +56,21 @@ public class signin extends AppCompatActivity {
             public void onClick(View v) {
 
             //    if(validate()){
-             /*   foodmakerService.foodmakerLogin(userEmail.getText().toString(), userPassword.getText().toString()).enqueue(new Callback<ApiResponse>() { //email:foodmakernew@gmail.com pass:testtest
+              foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testest").enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
                         @Override
-                        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                        public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
-                            Toast.makeText(signin.this,"success"+response.body().getStatus(),Toast.LENGTH_LONG).show();
+
+                            Log.v("foodmaker id success ",response.body().getFoodmakerName());
+                            Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
                         }
 
                         @Override
-                        public void onFailure(Call<ApiResponse> call, Throwable t) {
+                        public void onFailure(Call<Foodmaker> call, Throwable t) {
                             Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
 
                         }
-                    });*/
+                    });
           //      }
                 //api call end
 

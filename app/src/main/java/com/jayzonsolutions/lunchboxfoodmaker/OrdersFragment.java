@@ -25,7 +25,9 @@ import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Categories;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 import com.jayzonsolutions.lunchboxfoodmaker.model.FoodmakerDishes;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Order;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Products;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class OrdersFragment extends Fragment {
     private RecycleAdapter_AddProduct mAdapter;
 
     private FoodmakerService foodmakerService;
-    List<FoodmakerDishes> foodmakerDishesList;
+    List<Order> foodmakerOrderList;
 
     private Map<Integer,Double> orderdishes;
     private Categories categories;
@@ -77,10 +79,10 @@ public class OrdersFragment extends Fragment {
 
         //    initComponent(view);
 
-        foodmakerDishesList = new ArrayList<>();
+        foodmakerOrderList = new ArrayList<>();
         categories = new Categories();
         categories.productsArrayList = new ArrayList<>();
-        mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerDishesList);
+        mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
         recyclerView = view.findViewById(R.id.recyclerview);
 
 
@@ -89,7 +91,8 @@ public class OrdersFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        //  Toast.makeText(getActivity().getApplicationContext(), "id =" + id, Toast.LENGTH_SHORT).show();
+
+        foodmakerService = ApiUtils.getFoodmakerService();
 
 
 /**
@@ -98,33 +101,19 @@ public class OrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        //junaid commit
-        /*
-
-        foodmakerService.getDishesByFoodmakerId(id).enqueue(new Callback<List<FoodmakerDishes>>() {
+        foodmakerService.getOrdersByFoodmakerId(8).enqueue(new Callback<List<Order>>() {
             @Override
-            public void onResponse(@NonNull Call<List<FoodmakerDishes>> call, @NonNull Response<List<FoodmakerDishes>> response) {
+            public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
-                foodmakerDishesList = response.body();
-                mAdapter.setFoodmakerDishesList(foodmakerDishesList);
- */
-/*               for (FoodmakerDishes foodmakerDishes : response.body()) {
-                    Log.d("TAG", "Response = " + foodmakerDishes.getDish().getDishName());
-
-                    Toast.makeText(getContext(), "success" + foodmakerDishes.getDish().getDishName(), Toast.LENGTH_SHORT).show();
-
-
-
-                }
- *//*
-
+                foodmakerOrderList = response.body();
+                mAdapter.setfoodmakerOrderList(foodmakerOrderList);
 
 
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<FoodmakerDishes>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Response Failed", Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "failed" );
             }
@@ -132,31 +121,9 @@ public class OrdersFragment extends Fragment {
 
 
 
-        */
-/**
+        /**
          *End
-         ** call to get foodmaker dishes**//*
-
-
-*/
-
- /*       btn = view.findViewById(R.id.btnDetail);
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  showTimePickerDialog(v);
-                Intent intent = new Intent(getActivity(), PlaceOrderActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(0,0);
-
-            }
-        });
-*/
-
-
-
+         ** call to get foodmaker dishes**/
 
         return view;
 
@@ -164,21 +131,24 @@ public class OrdersFragment extends Fragment {
     }
 
 
+
+
+
     public class RecycleAdapter_AddProduct extends RecyclerView.Adapter<RecycleAdapter_AddProduct.MyViewHolder> {
 
         Context context;
         boolean showingFirst = true;
         int recentPos = -1;
-        private List<FoodmakerDishes> foodmakerDishesList;
+        private List<Order> foodmakerOrderList;
 
 
-        RecycleAdapter_AddProduct(Context context, List<FoodmakerDishes> foodmakerDishesList) {
-            this.foodmakerDishesList = foodmakerDishesList;
+        RecycleAdapter_AddProduct(Context context, List<Order> foodmakerOrderList) {
+            this.foodmakerOrderList = foodmakerOrderList;
             this.context = context;
         }
 
-        void setFoodmakerDishesList(List<FoodmakerDishes> foodmakerDishesList) {
-            this.foodmakerDishesList = foodmakerDishesList;
+        void setfoodmakerOrderList(List<Order> foodmakerOrderList) {
+            this.foodmakerOrderList = foodmakerOrderList;
             notifyDataSetChanged();
         }
 
@@ -199,126 +169,47 @@ public class OrdersFragment extends Fragment {
         public void onBindViewHolder(@NonNull final RecycleAdapter_AddProduct.MyViewHolder holder, final int position) {
 
             //junaid commit
-            /*
-//            Products movie = productsList.get(position);
 
-            holder.title.setText(foodmakerDishesList.get(position).getDish().getDishName());
-            holder.price.setText(foodmakerDishesList.get(position).getDish().getDishSellingPrice().toString());
-            //  holder.price.setText(categories.getProductsArrayList().get(position).getPrice());
-            holder.quantityTxt.setText(foodmakerDishesList.get(position).getDish().getDishQuantity().toString());
-            //   holder.quantityTxt.setText(categories.getProductsArrayList().get(position).getQuantity() + "");
+//            Products movie = productsList.get(position);
+if(foodmakerOrderList.get(position).getCustomer() == null){
+    holder.title.setText("new order");
+}else{
+    holder.title.setText(foodmakerOrderList.get(position).getCustomer().getCustomerName());
+
+}
+
+
+//            holder.price.setText(foodmakerOrderList.get(position).getOrderTotalAmount().toString());
+            holder.price.setText("900");
+
 
 
             holder.quantity = 1;
-            holder.quantity = foodmakerDishesList.get(position).getDish().getDishQuantity();
+            holder.quantity = foodmakerOrderList.get(position).getOrderdishes().size();
             //   holder.quantity = categories.getProductsArrayList().get(position).getQuantity();
-            int totalPrice = holder.quantity * foodmakerDishesList.get(position).getDish().getDishSellingPrice();
+          //  int totalPrice = holder.quantity * foodmakerOrderList.get(position).getDish().getDishSellingPrice();
 
 
-         *//*   Glide.with(context).load(ApiUtils.BASE_URL+"images/es2.jpg").
+         /*   Glide.with(context).load(ApiUtils.BASE_URL+"images/es2.jpg").
                     apply(RequestOptions.
                             centerCropTransform().fitCenter().
                             diskCacheStrategy(DiskCacheStrategy.ALL)).
-                    into(holder.image);*//*
-
-            if (position == recentPos) {
-                Log.e("pos", "" + recentPos);
-                // start animation
-                holder.quantityTxt.startAnimation(startAnimation);
-
-            } else {
-                holder.quantityTxt.clearAnimation();
-
-            }
-
-
-            if (holder.quantity > 0) {
-                holder.quantityTxt.setVisibility(View.VISIBLE);
-                holder.llMinus.setVisibility(View.VISIBLE);
-            } else {
-                holder.quantityTxt.setVisibility(View.GONE);
-                holder.llMinus.setVisibility(View.GONE);
-            }
+                    into(holder.image);*/
 
 
 
             //       categories.getProductsArrayList().get(position).setPriceAsPerQuantity("" + totalPrice);
-            foodmakerDishesList.get(position).getDish().setDishPriceAsPerQuantity(" "+totalPrice);
-
-            holder.llPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e("dish"," => "+foodmakerDishesList.get(position).getDish().getDishId());
-                    Log.e("dish"," => "+foodmakerDishesList.get(position).getFoodmakerDishesId());
-
-                    if (holder.quantity < 10) {
-                        int foodmakerdishId = foodmakerDishesList.get(position).getFoodmakerDishesId();
-
-                        recentPos = position;
-                        holder.quantity = holder.quantity + 1;
-                        foodmakerDishesList.get(position).getDish().setDishQuantity(holder.quantity);
-                        //   categories.getProductsArrayList().get(position).setQuantity(holder.quantity);
-                        foodmakerDishesList.get(position).getDish().setDishPriceAsPerQuantity("" + holder.quantity * foodmakerDishesList.get(position).getDish().getDishSellingPrice());
-                        //    categories.getProductsArrayList().get(position).setPriceAsPerQuantity("" + holder.quantity * Integer.parseInt(categories.getProductsArrayList().get(position).getPrice()));
-
-                        holder.quantityTxt.setText("" + holder.quantity);
-
-                        double quan = (double) holder.quantity;
-                        orderdishes.put(foodmakerdishId,quan);
-                        Constant.orderdishes.put(foodmakerdishId,quan);
-                        int foodmakerId = foodmakerDishesList.get(position).getFoodmakerid();
-                        Constant.foodmakerdishes.put(foodmakerId,orderdishes);
-
-                        *//**
-                         * cart item
-                         *//*
 
 
 
 
 
-
-
-                    }
-
-
-                    notifyDataSetChanged();
-
-                }
-            });
-
-
-            holder.llMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (holder.quantity > 0 && holder.quantity <= 10) {
-
-                        recentPos = position;
-
-                        holder.quantity = holder.quantity - 1;
-                        foodmakerDishesList.get(position).getDish().setDishQuantity(holder.quantity);
-                        //        categories.getProductsArrayList().get(position).setQuantity(holder.quantity);
-                        foodmakerDishesList.get(position).getDish().setDishPriceAsPerQuantity("" + holder.quantity * foodmakerDishesList.get(position).getDish().getDishSellingPrice());
-                        //          categories.getProductsArrayList().get(position).setPriceAsPerQuantity("" + holder.quantity *
-                        //              Integer.parseInt(categories.getProductsArrayList().get(position).getPrice()));
-
-                        holder.quantityTxt.setText("" + holder.quantity);
-
-
-                    }
-
-                    notifyDataSetChanged();
-
-                }
-            });
-*/
 
         }
 
         @Override
         public int getItemCount() {
-            return foodmakerDishesList.size();
+            return foodmakerOrderList.size();
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
@@ -327,9 +218,9 @@ public class OrdersFragment extends Fragment {
             ImageView image;
             TextView title;
             TextView price;
-            TextView quantityTxt;
+
             int quantity;
-            private LinearLayout llMinus, llPlus;
+
 
 
             MyViewHolder(View view) {
@@ -338,9 +229,7 @@ public class OrdersFragment extends Fragment {
                 image = view.findViewById(R.id.imageProduct);
                 title = view.findViewById(R.id.titleProduct);
                 price = view.findViewById(R.id.price);
-                quantityTxt = view.findViewById(R.id.quantityTxt);
-                llPlus = view.findViewById(R.id.llPlus);
-                llMinus = view.findViewById(R.id.llMinus);
+
             }
 
         }

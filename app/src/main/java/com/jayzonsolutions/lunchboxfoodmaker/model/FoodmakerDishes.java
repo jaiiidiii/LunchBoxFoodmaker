@@ -4,6 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class FoodmakerDishes {
+
+    @SerializedName("foodmakerDishesId")
+    @Expose
+    private Integer foodmakerDishesId;
     @SerializedName("dishId")
     @Expose
     private Integer dishId;
@@ -18,7 +22,21 @@ public class FoodmakerDishes {
     private String imagepath;
     @SerializedName("price")
     @Expose
-    private String price;
+    private Double price;
+    @SerializedName("foodmaker")
+    @Expose
+    private Foodmaker foodmaker;
+    @SerializedName("dishes")
+    @Expose
+    private Dish dish;
+
+    public Integer getFoodmakerDishesId() {
+        return foodmakerDishesId;
+    }
+
+    public void setFoodmakerDishesId(Integer foodmakerDishesId) {
+        this.foodmakerDishesId = foodmakerDishesId;
+    }
 
     public Integer getDishId() {
         return dishId;
@@ -52,11 +70,29 @@ public class FoodmakerDishes {
         this.imagepath = imagepath;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
+
+    public Foodmaker getFoodmaker() {
+        return foodmaker;
+    }
+
+    public void setFoodmaker(Foodmaker foodmaker) {
+        this.foodmaker = foodmaker;
+    }
+
+    public Dish getDish() {
+        return dish;
+    }
+
+    public void setDish(Dish dish) {
+        this.dish = dish;
+    }
+
 }
+

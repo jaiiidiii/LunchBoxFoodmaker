@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Customer {
+
     @SerializedName("customerId")
     @Expose
     private String customerId;
@@ -27,16 +28,23 @@ public class Customer {
     private String customerAccessType;
     @SerializedName("customerAddressId")
     @Expose
-    private CustomerAddress customerAddress;
+    private Address address;
 
-    public Customer( String customerName, String customerEmail, String customerPassword, String customerNic, String customerPhoneNumber, String customerAccessType, CustomerAddress customerAddress) {
+    public Customer(String customerName, String customerEmail, String customerPassword, String customerNic, String customerPhoneNumber, String customerAccessType, Address address) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPassword = customerPassword;
         this.customerNic = customerNic;
         this.customerPhoneNumber = customerPhoneNumber;
         this.customerAccessType = customerAccessType;
-        this.customerAddress = customerAddress;
+        this.address = address;
+    }
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getCustomerName() {
@@ -87,12 +95,12 @@ public class Customer {
         this.customerAccessType = customerAccessType;
     }
 
-    public CustomerAddress getCustomerAddressId() {
-        return customerAddress;
+    public Address getCustomerAddressId() {
+        return address;
     }
 
-    public void setCustomerAddressId(CustomerAddress customerAddressId) {
-        this.customerAddress = customerAddressId;
+    public void setCustomerAddressId(Address addressId) {
+        this.address = addressId;
     }
 
 }
