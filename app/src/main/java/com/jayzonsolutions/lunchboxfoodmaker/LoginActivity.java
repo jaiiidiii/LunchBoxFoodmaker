@@ -12,8 +12,6 @@ public class LoginActivity extends AppCompatActivity {
     TextView sin;
     LinearLayout circle;
 
-    TextView btnTestActivity;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +20,6 @@ public class LoginActivity extends AppCompatActivity {
         circle = findViewById(R.id.circle);
         sin = findViewById(R.id.sin);
 
-        btnTestActivity = findViewById(R.id.btnTestActivity);
 
         circle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,13 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        btnTestActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(LoginActivity.this,TestActivty.class);
-                startActivity(it);
-            }
-        });
 
     }
 }
