@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new AddDish()).commit();
         } else if (id == R.id.nav_manage) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new DishesFragment()).commit();
+
 
         } else if (id == R.id.nav_share) {
 

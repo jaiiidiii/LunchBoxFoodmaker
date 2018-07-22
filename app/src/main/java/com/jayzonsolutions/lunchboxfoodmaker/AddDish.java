@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.DishService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerDishesService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
@@ -43,7 +44,9 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddDish extends Fragment {
 
-    Context context = getContext();
+    private static int foodmakerDishId ;
+
+    Context context = getActivity();
     private DishService dishService;
     private FoodmakerDishesService foodmakerDishesService;
     Spinner spinner;
@@ -100,7 +103,9 @@ public class AddDish extends Fragment {
                         categories.add(dish.getDishName());
                         categoriesKeyVlaue.put(dish.getDishName(),dish.getDishId());
                     }
+                    Log.e("cat",""+categories);
                     // Spinner Drop down elements
+                    context = getActivity();
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, categories);
                     // Drop down layout style - list view with radio button
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -145,7 +150,7 @@ public class AddDish extends Fragment {
             @Override
             public void onClick(View v)
             {
-
+/*
                 String dishNameData =  dishName.getText().toString();
                 String dishDescriptionData =  dishDescription.getText().toString();
                 String dishPriceData = dishPrice.getText().toString();
@@ -170,7 +175,7 @@ public class AddDish extends Fragment {
                         Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
 
                     }
-                });
+                });*/
             }
         });
 return v;
@@ -235,6 +240,9 @@ return v;
         }
 
         }
+    public void setId(Integer id) {
+        AddDish.foodmakerDishId = id;
+    }
 
 }
 

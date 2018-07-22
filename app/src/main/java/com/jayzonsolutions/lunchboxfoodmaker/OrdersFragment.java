@@ -114,7 +114,7 @@ public class OrdersFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), "Response Failed", Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(getContext(), "Response Failed", Toast.LENGTH_SHORT).show();
                 Log.d("TAG", "failed" );
             }
         });
