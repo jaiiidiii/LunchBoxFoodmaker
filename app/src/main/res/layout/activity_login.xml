@@ -22,6 +22,19 @@
 
 
         <customfonts.MyTextView
+            android:id="@+id/selectImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/account"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="63dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:text="Select Image"
+            android:textColor="@color/dark_blue"
+            android:textSize="25sp" />
+
+        <customfonts.MyTextView
             android:id="@+id/account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

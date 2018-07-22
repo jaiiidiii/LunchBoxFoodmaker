@@ -17,6 +17,15 @@
         <item name="android:colorBackground">@color/colorBackground</item>
 
     </style>
+    <style name="myCoolDialog" parent="AlertDialog.AppCompat">
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:colorForeground">@color/foreground_material_light</item>
+        <item name="android:textColorHighlightInverse">@color/text_color_primary_inverse</item>
+        <item name="android:textColorPrimary">@color/text_color_primary</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_material_dark</item>
+        <item name="android:textColorSecondary">@color/text_color_primary</item>
+        <item name="android:textColorSecondaryInverse">@color/primary_text_material_dark</item>
+    </style>
 
 
     <style name="AppTheme.NoActionBar">
