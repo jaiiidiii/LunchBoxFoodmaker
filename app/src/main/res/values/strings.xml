@@ -37,5 +37,6 @@
 
     <string name="hello_blank_fragment">Hello blank fragment Orders</string>
     <string name="default_notification_channel_id">Channel ID</string>
+    <string name="nothing_to_display">Nothing To Display</string>
 
 </resources>
