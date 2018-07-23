@@ -14,12 +14,36 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.activity_splash);
+/*appPermissions ap = new appPermissions(getApplicationContext());
 
+        ap.requestStoragePermission();*/
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
+
+             /*   // Session class instance
+                SessionManager session = new SessionManager(getApplicationContext());
+
+                //        handleButtonClicked();
+
+
+                //     session.checkLogin();
+
+                if (session.isLoggedIn()) {
+                    //   startActivity(new Intent(SplashScreen.this,
+                    //           MainActivity.class));
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    //     startActivity(new Intent(SplashScreen.this,
+                    //		                    MainActivity.class));
+                } else {
+                    Intent i = new Intent(SplashActivity.this, signin.class);
+                    startActivity(i);
+                }
+                */
+
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this,LoginActivity.class);
                 SplashActivity.this.startActivity(mainIntent);

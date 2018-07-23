@@ -1,5 +1,6 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +32,10 @@ public class signin extends AppCompatActivity {
     String DeviceID;
     MyEditText userEmail;
     MyEditText userPassword;
+    final Context context = this;
 
+    // Session Manager Class
+    SessionManager session;
 
 
     private FoodmakerService foodmakerService;
@@ -48,6 +52,9 @@ public class signin extends AppCompatActivity {
 
         String userEmailStr = userEmail.getText().toString();
         String userPasswordStr = userPassword.getText().toString();
+
+        // Session Manager
+        session = new SessionManager(context);
 
         foodmakerService = ApiUtils.getFoodmakerService();
         displayFirebaseRegId();
@@ -73,6 +80,25 @@ public class signin extends AppCompatActivity {
                 });
                 //      }
                 //api call end
+
+  /*              // Creating user login session
+                // For testing Junaid Khan name, email as follow
+                // Use user real data
+                session.createLoginSession(
+                        MACaddress.toString(),
+                        passEditText.getText().toString(),
+                        TempUserIsAdmin.toString(),
+                        TempUserID.toString(),
+                        TempGroupID.toString(),
+                        TempUserName.toString()
+                );
+
+                Intent myIntent = new Intent(signin.this, MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(myIntent);
+
+
+                */
 
                 Intent intent = new Intent(signin.this,MainActivity.class);
                 startActivity(intent);

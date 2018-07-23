@@ -1,5 +1,6 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 public class LoginActivity extends AppCompatActivity {
     TextView sin,imageSelect;
     LinearLayout circle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

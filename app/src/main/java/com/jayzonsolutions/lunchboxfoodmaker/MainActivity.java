@@ -1,5 +1,6 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    final Context context = this;
+
+    // Session Manager Class
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,36 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        session = new SessionManager(context);
+        HashMap<String, String> User = session.getUserDetails();
+    //    final GlobalVariables g = GlobalVariables.GetInstance();
+        //    TempUserName = g.GetUserName();
+        //    TempUserID = g.GetUserID();
+
+     /*   TempUserIsAdmin = User.get("IS_ADMIN");
+        TempUserID = User.get("USER_ID");
+        TempGroupID = User.get("GROUP_ID");
+        TempUserName = User.get("USER_NAME");
+        MAC = User.get("MAC_ADDRESS");
+        g.setIsAdmin(TempUserIsAdmin);
+        g.setUserID(TempUserID);*/
+
+        /**
+         * Call this function whenever you want to check user login
+         * This will redirect user to LoginActivity is he is not
+         * logged in
+         * */
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        /**
+         * Logout button click event
+         * */
+
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +142,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
+
+            // Clear the session data
+            // This will clear all session data and
+            // redirect user to LoginActivity
+            session.logoutUser();
+
+            Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();
 
         }
 
