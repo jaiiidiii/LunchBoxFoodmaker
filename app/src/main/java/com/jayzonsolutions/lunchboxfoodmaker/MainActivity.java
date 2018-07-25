@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
     final Context context = this;
 
     // Session Manager Class
-    SessionManager session;
+    //SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        session = new SessionManager(context);
-        HashMap<String, String> User = session.getUserDetails();
+  //      session = new SessionManager(context);
+//        HashMap<String, String> User = session.getUserDetails();
     //    final GlobalVariables g = GlobalVariables.GetInstance();
         //    TempUserName = g.GetUserName();
         //    TempUserID = g.GetUserID();
@@ -52,10 +52,12 @@ public class MainActivity extends AppCompatActivity
          * This will redirect user to LoginActivity is he is not
          * logged in
          * */
+/*
         session.checkLogin();
 
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
+*/
 
         /**
          * Logout button click event
@@ -132,6 +134,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_dishes) {
 
         } else if (id == R.id.nav_addDishes) {
+            AddDish myFragment = new AddDish();
+            myFragment.setFoodmakerDish(null);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new AddDish()).commit();
         } else if (id == R.id.nav_manage) {
@@ -146,9 +151,9 @@ public class MainActivity extends AppCompatActivity
             // Clear the session data
             // This will clear all session data and
             // redirect user to LoginActivity
-            session.logoutUser();
+         /*   session.logoutUser();
 
-            Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();*/
 
         }
 

@@ -35,7 +35,7 @@ public class signin extends AppCompatActivity {
     final Context context = this;
 
     // Session Manager Class
-    SessionManager session;
+//    SessionManager session;
 
 
     private FoodmakerService foodmakerService;
@@ -53,8 +53,8 @@ public class signin extends AppCompatActivity {
         String userEmailStr = userEmail.getText().toString();
         String userPasswordStr = userPassword.getText().toString();
 
-        // Session Manager
-        session = new SessionManager(context);
+       /* // Session Manager
+        session = new SessionManager(context);*/
 
         foodmakerService = ApiUtils.getFoodmakerService();
         displayFirebaseRegId();
@@ -63,19 +63,23 @@ public class signin extends AppCompatActivity {
             public void onClick(View v) {
 
                 //    if(validate()){
-                foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testest",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testtest",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
                     @Override
                     public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
 
                         Log.v("foodmaker id success ",response.body().getFoodmakerName());
                         Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(signin.this,MainActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(Call<Foodmaker> call, Throwable t) {
                         Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
-
+           /*             Intent intent = new Intent(signin.this,MainActivity.class);
+                        startActivity(intent);
+*/
                     }
                 });
                 //      }
@@ -100,9 +104,9 @@ public class signin extends AppCompatActivity {
 
                 */
 
-                Intent intent = new Intent(signin.this,MainActivity.class);
+               /* Intent intent = new Intent(signin.this,MainActivity.class);
                 startActivity(intent);
-
+*/
 
 
             }

@@ -5,6 +5,7 @@ import com.jayzonsolutions.lunchboxfoodmaker.Service.CustomerService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.DishService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerDishesService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.RetrofitClient;
 import com.jayzonsolutions.lunchboxfoodmaker.model.FoodmakerDishes;
 
@@ -12,7 +13,7 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://192.168.0.107:8080/";
+    public static final String BASE_URL = "http://192.168.1.112:8080/";
 
     public static APIService getAPIService() {
 
@@ -32,5 +33,8 @@ public class ApiUtils {
 
     static FoodmakerService getFoodmakerService(){
         return  RetrofitClient.getClient(BASE_URL).create(FoodmakerService.class);
+    }
+    public static OrderService getOrderService(){
+        return  RetrofitClient.getClient(BASE_URL).create(OrderService.class);
     }
  }

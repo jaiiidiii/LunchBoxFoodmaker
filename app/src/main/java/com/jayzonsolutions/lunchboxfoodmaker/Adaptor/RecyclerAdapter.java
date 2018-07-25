@@ -115,7 +115,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
                         new DetailFragment()).commit();*/
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 AddDish myFragment = new AddDish();
-                myFragment.setId(movieList.get(position).getFoodmakerDishesId());
+                myFragment.setFoodmakerDish(movieList.get(position));
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }
         });

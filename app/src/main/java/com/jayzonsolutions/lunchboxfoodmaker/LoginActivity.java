@@ -43,7 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         imageSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(LoginActivity.this,CameraPhotoCapture.class);
+                //Intent it = new Intent(LoginActivity.this,CameraPhotoCapture.class);
+                Intent it = new Intent(LoginActivity.this,TestActivty.class);
                 startActivity(it);
             }
         });

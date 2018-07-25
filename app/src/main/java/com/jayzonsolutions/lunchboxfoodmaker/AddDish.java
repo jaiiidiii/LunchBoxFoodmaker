@@ -44,7 +44,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddDish extends Fragment {
 
-    private static int foodmakerDishId ;
+    private static FoodmakerDishes foodmakerDish ;
 
     Context context = getActivity();
     private DishService dishService;
@@ -146,20 +146,51 @@ public class AddDish extends Fragment {
 
 
 
+        /**
+         * if update in call then check foodmakerDish is aviable
+         * */
+
+        if(getFoodmakerDish() != null){
+            FoodmakerDishes foodmakerDishes = getFoodmakerDish();
+            dishDescription.setText(foodmakerDishes.getDescription());
+            dishPrice.setText(""+foodmakerDishes.getPrice());
+        }
+
+
+
+
+
+
+
+
+
+
+
         btnRegisterDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-/*
+
                 String dishNameData =  dishName.getText().toString();
                 String dishDescriptionData =  dishDescription.getText().toString();
                 String dishPriceData = dishPrice.getText().toString();
+                FoodmakerDishes foodmakerDishes;
+                if(getFoodmakerDish() != null){
+                     foodmakerDishes = getFoodmakerDish();
+                    foodmakerDishes.setDescription(dishDescriptionData);
+                    foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
+                    foodmakerDishes.setDishId(selectedItemId);
+                    foodmakerDishes.setFoodmakerid(1); //set de
 
-                FoodmakerDishes foodmakerDishes =new FoodmakerDishes();
-                foodmakerDishes.setDescription(dishDescriptionData);
-                foodmakerDishes.setDishId(selectedItemId);
-                foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
-                foodmakerDishes.setPrice(33.33);
+                }else{
+                     foodmakerDishes =new FoodmakerDishes();
+                    foodmakerDishes.setDescription(dishDescriptionData);
+                    foodmakerDishes.setDishId(selectedItemId);
+                    foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
+                    foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
+                }
+
+
 
                 foodmakerDishesService.addFoodmakerDishes(foodmakerDishes).enqueue(new Callback<ApiResponse>() {
                     @Override
@@ -175,7 +206,7 @@ public class AddDish extends Fragment {
                         Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
 
                     }
-                });*/
+                });
             }
         });
 return v;
@@ -240,9 +271,11 @@ return v;
         }
 
         }
-    public void setId(Integer id) {
-        AddDish.foodmakerDishId = id;
+    public void setFoodmakerDish(FoodmakerDishes foodmakerDish) {
+        AddDish.foodmakerDish = foodmakerDish;
     }
-
+    public FoodmakerDishes getFoodmakerDish() {
+       return AddDish.foodmakerDish;
+    }
 }
 
