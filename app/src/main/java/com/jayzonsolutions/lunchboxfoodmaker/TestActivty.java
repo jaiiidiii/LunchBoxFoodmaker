@@ -27,7 +27,7 @@ public class TestActivty extends AppCompatActivity {
          *
          */
         orderService = ApiUtils.getOrderService();
-        orderService.updateOrderStatus(1,3).enqueue(new Callback<Void>() {
+        orderService.updateOrderStatus(3,1).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 Toast.makeText(TestActivty.this, "success" , Toast.LENGTH_LONG).show();
