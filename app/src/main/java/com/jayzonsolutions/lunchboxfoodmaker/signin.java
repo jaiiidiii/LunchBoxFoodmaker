@@ -68,7 +68,7 @@ public class signin extends AppCompatActivity {
                     public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
 
-                        Log.v("foodmaker id success ",response.body().getFoodmakerName());
+                     //   Log.v("foodmaker id success ",response.body().getFoodmakerName());
                         Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(signin.this,MainActivity.class);
                         startActivity(intent);

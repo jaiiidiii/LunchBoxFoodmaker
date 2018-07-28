@@ -1,8 +1,8 @@
-package com.jayzonsolutions.lunchboxfoodmaker;
+package com.jayzonsolutions.lunchboxfoodmaker.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +18,16 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
+import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.ItemClickListener;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Categories;
-import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
-import com.jayzonsolutions.lunchboxfoodmaker.model.FoodmakerDishes;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Order;
-import com.jayzonsolutions.lunchboxfoodmaker.model.Products;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +44,8 @@ public class OrdersFragment extends Fragment {
 
     Animation startAnimation;
 
+//    private OrderService orderService;
+  //  Context context = getContext();
     private RecyclerView recyclerView;
     private RecycleAdapter_AddProduct mAdapter;
 
@@ -100,14 +101,14 @@ public class OrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        foodmakerService.getOrdersByFoodmakerId(8).enqueue(new Callback<List<Order>>() {
+        foodmakerService.getOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
                 foodmakerOrderList = response.body();
                 mAdapter.setfoodmakerOrderList(foodmakerOrderList);
-
+                //mAdapter.notifyDataSetChanged();
 
             }
 
@@ -200,7 +201,80 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             //       categories.getProductsArrayList().get(position).setPriceAsPerQuantity("" + totalPrice);
 
 
+            holder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onItemClick(View v, final int pos) {
+                    Log.d("pos", String.valueOf(pos));
+                    Toast.makeText(context, "Clicked Position =" + pos, Toast.LENGTH_SHORT).show();
 
+//                    Toast.makeText(context, "Pressed Order Item", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setTitle("Accept Order");
+                    alert.setMessage("Do You Want To Acknowledge this Order");
+                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Toast.makeText(context, "Clicked Yes", Toast.LENGTH_SHORT).show();
+
+                           OrderService orderService = ApiUtils.getOrderService();
+                            orderService.updateOrderStatus(2,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                    Toast.makeText(context, "Order status changed to 2" , Toast.LENGTH_LONG).show();
+
+
+
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                    Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
+                                    Log.d("TAG", "failed" );
+                                }
+                            });
+
+                       //     setOrderStatus(foodmakerOrderList.get(pos).getOrderId());
+                /*Intent myIntent = new Intent(
+                        CameraPhotoCapture.this,
+                        LoginActivity.class);
+                startActivity(myIntent);
+                finish();*/
+
+                        }
+                    });
+
+                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(context, "Clicked No", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                    alert.show();
+
+
+
+       /*         //INTENT OBJ
+                Intent i=new Intent(context,D.class);
+
+                //ADD DATA TO OUR INTENT
+                i.putExtra("Name",players[position]);
+                i.putExtra("Position",positions[position]);
+                i.putExtra("Image",images[position]);
+
+                //START DETAIL ACTIVITY
+                context.startActivity(i);
+
+                v.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new DetailFragment()).commit();*/
+
+
+                    //  AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    //  DetailFragment myFragment = new DetailFragment();
+                    // myFragment.setId(movieList.get(position).getFoodmakerId());
+                    // activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+                }
+            });
 
 
 
@@ -211,7 +285,7 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             return foodmakerOrderList.size();
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder {
+        class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
             ImageView image;
@@ -221,6 +295,7 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             int quantity;
 
 
+            private ItemClickListener itemClickListener;
 
             MyViewHolder(View view) {
                 super(view);
@@ -228,12 +303,41 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
                 image = view.findViewById(R.id.imageProduct);
                 title = view.findViewById(R.id.titleProduct);
                 price = view.findViewById(R.id.price);
-
+                view.setOnClickListener(this);
+            }
+            @Override
+            public void onClick(View v) {
+                this.itemClickListener.onItemClick(v, getLayoutPosition());
             }
 
+            void setItemClickListener(ItemClickListener ic) {
+                this.itemClickListener = ic;
+
+            }
         }
 
     }
+
+/*    private void setOrderStatus(Integer orderId) {
+        orderService = ApiUtils.getOrderService();
+        orderService.updateOrderStatus(2,orderId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                Toast.makeText(context, "Order status changed to 2" , Toast.LENGTH_LONG).show();
+
+
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
+                Log.d("TAG", "failed" );
+            }
+        });
+
+
+    }*/
 
 }
 

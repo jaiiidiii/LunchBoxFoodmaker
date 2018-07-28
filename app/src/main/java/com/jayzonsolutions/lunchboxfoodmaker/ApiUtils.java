@@ -13,7 +13,7 @@ public class ApiUtils {
 
     private ApiUtils() {}
 
-    public static final String BASE_URL = "http://192.168.1.102:8080/";
+    public static final String BASE_URL = "http://192.168.0.108:8080/";
 
     public static APIService getAPIService() {
 
@@ -23,15 +23,15 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_URL).create(CustomerService.class);
     }
 
-    static DishService getDishService(){
+    public static DishService getDishService(){
         return  RetrofitClient.getClient(BASE_URL).create(DishService.class);
     }
 
-    static FoodmakerDishesService getFoodmakerDishes(){
+    public static FoodmakerDishesService getFoodmakerDishes(){
         return  RetrofitClient.getClient(BASE_URL).create(FoodmakerDishesService.class);
     }
 
-    static FoodmakerService getFoodmakerService(){
+    public static FoodmakerService getFoodmakerService(){
         return  RetrofitClient.getClient(BASE_URL).create(FoodmakerService.class);
     }
     public static OrderService getOrderService(){

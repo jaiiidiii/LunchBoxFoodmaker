@@ -3,9 +3,6 @@ package com.jayzonsolutions.lunchboxfoodmaker;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,9 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import java.util.HashMap;
+import com.jayzonsolutions.lunchboxfoodmaker.Fragments.MainFragment;
+import com.jayzonsolutions.lunchboxfoodmaker.Fragments.OrdersFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         //To Show First fragment on creation
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new OrdersFragment()).commit();
+                    new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_orders);
         }
     }
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_orders) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new OrdersFragment()).commit();
+                    new MainFragment()).commit();
 
         } else if (id == R.id.nav_dishes) {
 
