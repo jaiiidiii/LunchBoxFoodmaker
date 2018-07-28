@@ -46,17 +46,36 @@ public class MainFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
+
+
         return v;
 
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(final ViewPager viewPager) {
         //   ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
         ViewPagerAdapter adapter = new ViewPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
         adapter.addFragment(new OrdersFragment(), "Orders");
         adapter.addFragment(new AckOrdersFragment(), "ACK");
         adapter.addFragment(new DoneOrdersFragment(), "Done");
         viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Objects.requireNonNull(viewPager.getAdapter()).notifyDataSetChanged();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void setupTabIcons() {
@@ -95,6 +114,12 @@ public class MainFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+// POSITION_NONE makes it possible to reload the PagerAdapter
+            return POSITION_NONE;
         }
     }
 

@@ -101,7 +101,7 @@ public class DoneOrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        foodmakerService.getOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
+        foodmakerService.getDoneOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();

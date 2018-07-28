@@ -105,7 +105,7 @@ public class AckOrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        foodmakerService.getOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
+        foodmakerService.getAckOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
@@ -174,7 +174,6 @@ public class AckOrdersFragment extends Fragment {
         public void onBindViewHolder(@NonNull final RecycleAdapter_AddProduct.MyViewHolder holder, final int position) {
 
             //junaid commit
-if(foodmakerOrderList.get(position).getOrderStatus() == 2) {
 //            Products movie = productsList.get(position);
     if (foodmakerOrderList.get(position).getCustomer() != null) {
 
@@ -227,7 +226,7 @@ if(foodmakerOrderList.get(position).getOrderStatus() == 2) {
                         @Override
                         public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                             Toast.makeText(context, "Order status changed to 2", Toast.LENGTH_LONG).show();
-
+                            removeAt(pos);
 
                         }
 
@@ -260,15 +259,21 @@ if(foodmakerOrderList.get(position).getOrderStatus() == 2) {
 
         }
     });
-
-
-}
         }
 
         @Override
         public int getItemCount() {
             return foodmakerOrderList.size();
         }
+
+
+        public void removeAt(int position) {
+            foodmakerOrderList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, foodmakerOrderList.size());
+        }
+
+
 
         class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

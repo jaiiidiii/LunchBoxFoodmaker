@@ -37,4 +37,10 @@ public interface FoodmakerService {
 
     @GET("foodmaker/get-orderByFoodmakerId")
     Call<List<Order>> getOrdersByFoodmakerId(@Query("foodmakerId") Integer foodmakerId);
+
+    @GET("foodmaker/get-ack-orderByFoodmakerId")
+    Call<List<Order>> getAckOrdersByFoodmakerId(@Query("foodmakerId") Integer foodmakerId);
+
+    @GET("foodmaker/get-done-orderByFoodmakerId")
+    Call<List<Order>> getDoneOrdersByFoodmakerId(@Query("foodmakerId") Integer foodmakerId);
 }

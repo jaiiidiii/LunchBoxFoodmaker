@@ -221,9 +221,7 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
                                 @Override
                                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                                     Toast.makeText(context, "Order status changed to 2" , Toast.LENGTH_LONG).show();
-
-
-
+                                    removeAt(pos);
                                 }
 
                                 @Override
@@ -283,6 +281,13 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
         @Override
         public int getItemCount() {
             return foodmakerOrderList.size();
+        }
+
+
+        public void removeAt(int position) {
+            foodmakerOrderList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, foodmakerOrderList.size());
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
