@@ -282,7 +282,11 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
 
         @Override
         public int getItemCount() {
-            return foodmakerOrderList.size();
+            int size = 0;
+            if(foodmakerOrderList != null){
+                size = foodmakerOrderList.size();
+            }
+            return size;
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

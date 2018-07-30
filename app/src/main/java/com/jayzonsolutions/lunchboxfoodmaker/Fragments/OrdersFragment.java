@@ -3,6 +3,7 @@ package com.jayzonsolutions.lunchboxfoodmaker.Fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,12 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
+import com.jayzonsolutions.lunchboxfoodmaker.Constant;
+import com.jayzonsolutions.lunchboxfoodmaker.MainActivity;
 import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.ItemClickListener;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Categories;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Order;
+import com.jayzonsolutions.lunchboxfoodmaker.signin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +73,14 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Integer foodmakerId = 0;
+        if(Constant.foodmaker  != null){
+            foodmakerId =  Constant.foodmaker.getFoodmakerId();
+           // Intent intent = new Intent(MainFragment.this, signin.class);
+        }
+
+
+
         //create this screen orderDishes list
         orderdishes = new HashMap<>();
 
@@ -101,7 +113,7 @@ public class OrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        foodmakerService.getOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
+        foodmakerService.getOrdersByFoodmakerId(foodmakerId).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();

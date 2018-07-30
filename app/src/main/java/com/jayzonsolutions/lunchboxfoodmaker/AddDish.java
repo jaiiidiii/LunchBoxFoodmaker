@@ -152,7 +152,8 @@ public class AddDish extends Fragment {
 
         if(getFoodmakerDish() != null){
             FoodmakerDishes foodmakerDishes = getFoodmakerDish();
-            dishDescription.setText(foodmakerDishes.getDescription());
+            dishName.setText(""+foodmakerDishes.getName());
+            dishDescription.setText(""+foodmakerDishes.getDescription());
             dishPrice.setText(""+foodmakerDishes.getPrice());
         }
 
@@ -177,19 +178,15 @@ public class AddDish extends Fragment {
                 FoodmakerDishes foodmakerDishes;
                 if(getFoodmakerDish() != null){
                      foodmakerDishes = getFoodmakerDish();
-                    foodmakerDishes.setDescription(dishDescriptionData);
-                    foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
-                    foodmakerDishes.setDishId(selectedItemId);
-                    foodmakerDishes.setFoodmakerid(1); //set de
-
-                }else{
+                 }else{
                      foodmakerDishes =new FoodmakerDishes();
-                    foodmakerDishes.setDescription(dishDescriptionData);
-                    foodmakerDishes.setDishId(selectedItemId);
-                    foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
-                    foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
-                }
 
+                }
+                foodmakerDishes.setName(dishNameData);
+                foodmakerDishes.setDescription(dishDescriptionData);
+                foodmakerDishes.setDishId(selectedItemId);
+                foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
+                foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
 
 
                 foodmakerDishesService.addFoodmakerDishes(foodmakerDishes).enqueue(new Callback<ApiResponse>() {

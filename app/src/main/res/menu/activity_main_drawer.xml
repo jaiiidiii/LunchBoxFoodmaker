@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/switchId"
+            android:title=""
+            android:actionLayout="@layout/switch_layout"
+            app:showAsAction="always"
+            />
+
+
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/ic_menu_camera"
@@ -17,9 +27,14 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Add Dish" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/my_dishes"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="My Dishes" />
+
+        <item
+            android:id="@+id/test"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Test" />
     </group>
 
     <item android:title="Communicate">

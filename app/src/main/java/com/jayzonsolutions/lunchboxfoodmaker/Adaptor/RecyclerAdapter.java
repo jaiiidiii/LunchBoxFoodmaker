@@ -21,6 +21,7 @@ import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
 //import com.jayzonsolutions.lunchboxfoodmaker.Fragments.DetailFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.ItemClickListener;
+import com.jayzonsolutions.lunchboxfoodmaker.SingleDishFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 import com.jayzonsolutions.lunchboxfoodmaker.AddDish;
 import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
@@ -85,7 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
                 centerCropTransform().fitCenter().
                 diskCacheStrategy(DiskCacheStrategy.ALL)).
                 into(holder.FoodMakerImage);*/
-        String imagePath = ((movieList.get(position).getImagepath() != null)?movieList.get(position).getImagepath():"");
+        String imagePath = ((movieList.get(position).getImagepath() != null)?movieList.get(position).getImagepath():"http://localhost:8080/images/biryani.jpg");
 
 
 
@@ -115,6 +116,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
                         new DetailFragment()).commit();*/
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 AddDish myFragment = new AddDish();
+              //  SingleDishFragment myFragment = new SingleDishFragment();
                 myFragment.setFoodmakerDish(movieList.get(position));
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }

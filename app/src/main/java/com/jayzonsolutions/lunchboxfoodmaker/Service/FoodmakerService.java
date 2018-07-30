@@ -24,6 +24,11 @@ public interface FoodmakerService {
     @POST("foodmaker/signup")
     Call<ApiResponse> foodmakerSignup(@Body Foodmaker foodmaker);
 
+    @POST("foodmaker/set-status")
+    @FormUrlEncoded
+    Call<String> updateFoodmakerStatus(@Field("foodmakerId") Integer foodmakerId,@Field("status") Integer status);
+
+
 
     @GET("foodmaker/foodmakers-list")
     Call<List<Foodmaker>> getFoodmakerList();

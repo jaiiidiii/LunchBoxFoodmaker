@@ -61,28 +61,29 @@ public class signin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(validate()){
+                    MyEditText email = (MyEditText)findViewById(R.id.userEmail);
+                    MyEditText pass = (MyEditText)findViewById(R.id.userPassword);
+                    foodmakerService.foodmakerLogin(email.getText().toString(), pass.getText().toString(),DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                        @Override
+                        public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
-                //    if(validate()){
-                foodmakerService.foodmakerLogin("foodmakernew@gmail.com", "testtest",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
-                    @Override
-                    public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
+                            if(response.body() != null){
+                                Constant.foodmaker = response.body();
+                                Toast.makeText(signin.this,"Successfully Logged in",Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(signin.this,MainActivity.class);
+                                startActivity(intent);
+                            }
 
+                        }
 
-                     //   Log.v("foodmaker id success ",response.body().getFoodmakerName());
-                        Toast.makeText(signin.this,"success"+response.body(),Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(signin.this,MainActivity.class);
-                        startActivity(intent);
-                    }
+                        @Override
+                        public void onFailure(Call<Foodmaker> call, Throwable t) {
+                            Toast.makeText(signin.this,"Connection Problem ",Toast.LENGTH_LONG).show();
 
-                    @Override
-                    public void onFailure(Call<Foodmaker> call, Throwable t) {
-                        Toast.makeText(signin.this,"failed ",Toast.LENGTH_LONG).show();
-           /*             Intent intent = new Intent(signin.this,MainActivity.class);
-                        startActivity(intent);
-*/
-                    }
-                });
-                //      }
+                        }
+                    });
+                }
                 //api call end
 
   /*              // Creating user login session
@@ -121,11 +122,11 @@ public class signin extends AppCompatActivity {
             }
         });
     }
-/*
+
     public boolean validate()
     {
-        MyEditText name = (MyEditText)findViewById(R.id.usrusr);
-        MyEditText pass = (MyEditText)findViewById(R.id.pswrd);
+        MyEditText name = (MyEditText)findViewById(R.id.userEmail);
+        MyEditText pass = (MyEditText)findViewById(R.id.userPassword);
 
         if( name.getText().toString().length() == 0 && pass.getText().toString().length() == 0)
         {
@@ -147,7 +148,7 @@ public class signin extends AppCompatActivity {
         }
             return true;
     }
-*/
+
 
     // Fetches reg id from shared preferences
     // and displays on the screen

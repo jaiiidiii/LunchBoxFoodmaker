@@ -11,16 +11,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.MainFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.OrdersFragment;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
     final Context context = this;
-
-    // Session Manager Class
-    //SessionManager session;
+    ToggleButton toggleButton;
+    FoodmakerService foodmakerServiceMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,39 @@ public class MainActivity extends AppCompatActivity
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_orders);
         }
+        /*
+         * toggle button working
+                * start*/
+        toggleButton = (ToggleButton) findViewById(R.id.update_user_status);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Integer foodmakerStatus = 1;
+                if (isChecked) {
+                     foodmakerStatus = 1;
+                    Toast.makeText(getApplication(), "enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                     foodmakerStatus = 2;
+                    Toast.makeText(getApplication(), "disabled", Toast.LENGTH_SHORT).show();
+                }
+
+                foodmakerServiceMain = ApiUtils.getFoodmakerService();
+                foodmakerServiceMain.updateFoodmakerStatus(Constant.foodmaker.getFoodmakerId(),foodmakerStatus).enqueue(new Callback<String>() { //email:foodmakernew@gmail.com pass:testtest
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+        /**
+         * toggle button working
+         * end*/
+
     }
 
     @Override
@@ -136,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new AddDish()).commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.my_dishes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new DishesFragment()).commit();
 
@@ -151,6 +193,12 @@ public class MainActivity extends AppCompatActivity
          /*   session.logoutUser();
 
             Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();*/
+
+        }else if(id == R.id.test){
+
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new DishesFragment()).commit();
 
         }
 
