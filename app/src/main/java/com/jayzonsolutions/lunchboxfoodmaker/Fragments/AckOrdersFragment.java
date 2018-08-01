@@ -87,7 +87,7 @@ public class AckOrdersFragment extends Fragment {
         foodmakerOrderList = new ArrayList<>();
         categories = new Categories();
         categories.productsArrayList = new ArrayList<>();
-        mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+  //      mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
         recyclerView = view.findViewById(R.id.recyclerview);
 
 
@@ -95,9 +95,8 @@ public class AckOrdersFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+ //       recyclerView.setAdapter(mAdapter);
         foodmakerService = ApiUtils.getFoodmakerService();
-
 
 /**
  *start
@@ -111,7 +110,9 @@ public class AckOrdersFragment extends Fragment {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
                 foodmakerOrderList = response.body();
-                mAdapter.setfoodmakerOrderList(foodmakerOrderList);
+             //   mAdapter.setfoodmakerOrderList(foodmakerOrderList);
+                mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+                recyclerView.setAdapter(mAdapter);
 
 
             }

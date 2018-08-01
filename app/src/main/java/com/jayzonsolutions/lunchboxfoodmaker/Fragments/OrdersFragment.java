@@ -95,7 +95,7 @@ public class OrdersFragment extends Fragment {
         foodmakerOrderList = new ArrayList<>();
         categories = new Categories();
         categories.productsArrayList = new ArrayList<>();
-        mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+      //  mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
         recyclerView = view.findViewById(R.id.recyclerview);
 
 
@@ -103,8 +103,9 @@ public class OrdersFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+//        recyclerView.setAdapter(mAdapter);
         foodmakerService = ApiUtils.getFoodmakerService();
+
 
 
 /**
@@ -113,14 +114,16 @@ public class OrdersFragment extends Fragment {
 
         foodmakerService = ApiUtils.getFoodmakerService();
 
-        foodmakerService.getOrdersByFoodmakerId(foodmakerId).enqueue(new Callback<List<Order>>() {
+        foodmakerService.getOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() { //foodmakerId
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
                 foodmakerOrderList = response.body();
-                mAdapter.setfoodmakerOrderList(foodmakerOrderList);
+               // mAdapter.setfoodmakerOrderList(foodmakerOrderList);
                 //mAdapter.notifyDataSetChanged();
+                mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+                recyclerView.setAdapter(mAdapter);
 
             }
 
@@ -186,13 +189,18 @@ public class OrdersFragment extends Fragment {
 if(foodmakerOrderList.get(position).getCustomer() == null){
     holder.title.setText("new order");
 }else{
-    holder.title.setText(foodmakerOrderList.get(position).getCustomer().getCustomerName());
+    holder.title.setText(""+foodmakerOrderList.get(position).getCustomer().getCustomerName());
 
 }
 
+            if(foodmakerOrderList.get(position).getOrderTotalAmount() == null){
+                holder.price.setText("Amount not avaible yet");
+            }else{
+                holder.price.setText(""+foodmakerOrderList.get(position).getOrderTotalAmount());
+            }
 
-//            holder.price.setText(foodmakerOrderList.get(position).getOrderTotalAmount().toString());
-            holder.price.setText("900");
+
+//            holder.price.setText("900");
 
 
 
@@ -229,7 +237,7 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
                             Toast.makeText(context, "Clicked Yes", Toast.LENGTH_SHORT).show();
 
                            OrderService orderService = ApiUtils.getOrderService();
-                            orderService.updateOrderStatus(2,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() {
+                            orderService.updateOrderStatus(2,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() { //2 is acknowledge
                                 @Override
                                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                                     Toast.makeText(context, "Order status changed to 2" , Toast.LENGTH_LONG).show();
@@ -253,9 +261,29 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
                         }
                     });
 
+                    alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                           // Toast.makeText(context, "Clicked No", Toast.LENGTH_SHORT).show();
+                            OrderService orderService = ApiUtils.getOrderService();
+                            orderService.updateOrderStatus(4,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() { //4 is cancel
+                                @Override
+                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                    Toast.makeText(context, "Order status changed to 4" , Toast.LENGTH_LONG).show();
+                                    removeAt(pos);
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                    Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
+                                    Log.d("TAG", "failed" );
+                                }
+                            });
+
+                        }
+                    });
                     alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(context, "Clicked No", Toast.LENGTH_SHORT).show();
+
 
                         }
                     });
