@@ -170,7 +170,7 @@ android:background="@drawable/newimg">
 
             android:maxLines="7"
             android:scrollbars="vertical"
-            android:maxLength="12"
+
             android:padding="16dp"
             android:textColor="@color/textColor"
             android:textColorHint="@color/textColor"

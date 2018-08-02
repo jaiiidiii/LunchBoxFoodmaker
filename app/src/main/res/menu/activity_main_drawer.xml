@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Add Dish" />
         <item
+            android:id="@+id/my_dishes"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="My Dishes" />
+        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />

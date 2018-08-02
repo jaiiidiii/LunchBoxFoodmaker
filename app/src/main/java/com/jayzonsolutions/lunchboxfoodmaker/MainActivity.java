@@ -96,7 +96,20 @@ public class MainActivity extends AppCompatActivity
         /*
          * toggle button working
                 * start*/
-       /* toggleButton = (ToggleButton) findViewById(R.id.update_user_status);
+        toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+
+        if(Constant.foodmaker != null){
+            if(Constant.foodmaker.getFoodmakerActive() == 1){
+                toggleButton.setChecked(true);
+            }else{
+                toggleButton.setChecked(false);
+            }
+
+
+        }
+
+
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer foodmakerStatus = 1;
@@ -121,7 +134,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
             }
-        });*/
+        });
         /**
          * toggle button working
          * end*/
@@ -178,12 +191,12 @@ public class MainActivity extends AppCompatActivity
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new AddDish()).commit();
-        } /*else if (id == R.id.my_dishes) {
+        } else if (id == R.id.my_dishes) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new DishesFragment()).commit();
 
 
-        } */else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
 
