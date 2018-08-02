@@ -64,7 +64,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerAdapter.MyviewHolder holder, @SuppressLint("RecyclerView") final int position) {
-        holder.FoodMakerName.setText(movieList.get(position).getDish().getDishName());
+        holder.FoodMakerName.setText(movieList.get(position).getName());
         if(movieList.get(position).getPrice() != null){
             holder.ProductPrice.setText(movieList.get(position).getPrice().toString());
         }else{holder.ProductPrice.setText("not Avaible");}
