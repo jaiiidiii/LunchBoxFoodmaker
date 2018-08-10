@@ -69,12 +69,12 @@ public class DoneOrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //create this screen orderDishes list
-        orderdishes = new HashMap<>();
 
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_orders, container, false);
+        //create this screen orderDishes list
+        orderdishes = new HashMap<>();
 
         startAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
 

@@ -1,6 +1,7 @@
 package com.jayzonsolutions.lunchboxfoodmaker.Service;
 
 import com.jayzonsolutions.lunchboxfoodmaker.model.ApiResponse;
+import com.jayzonsolutions.lunchboxfoodmaker.model.Dish;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 import com.jayzonsolutions.lunchboxfoodmaker.model.FoodmakerDishes;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Order;
@@ -48,4 +49,7 @@ public interface FoodmakerService {
 
     @GET("foodmaker/get-done-orderByFoodmakerId")
     Call<List<Order>> getDoneOrdersByFoodmakerId(@Query("foodmakerId") Integer foodmakerId);
+
+    @GET("foodmaker_dishes/get-done-orderByFoodmakerId")
+    Call<List<Dish>> getdishesByorderId(@Query("orderId") int orderId);
 }

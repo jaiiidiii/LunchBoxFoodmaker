@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,7 +19,7 @@ public class TestActivty extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_activty);
+        setContentView(R.layout.list_item);
 
         /***
          *

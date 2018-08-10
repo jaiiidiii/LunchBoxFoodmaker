@@ -3,7 +3,6 @@ package com.jayzonsolutions.lunchboxfoodmaker.Fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,20 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
 import com.jayzonsolutions.lunchboxfoodmaker.Constant;
-import com.jayzonsolutions.lunchboxfoodmaker.MainActivity;
 import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.ItemClickListener;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Categories;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Order;
-import com.jayzonsolutions.lunchboxfoodmaker.signin;
+import com.jayzonsolutions.lunchboxfoodmaker.model.OrderDish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +47,8 @@ public class OrdersFragment extends Fragment {
     public static Integer id;
 
     Animation startAnimation;
+    Integer foodmakerId = 0;
 
-//    private OrderService orderService;
-  //  Context context = getContext();
     private RecyclerView recyclerView;
     private RecycleAdapter_AddProduct mAdapter;
 
@@ -73,7 +72,9 @@ public class OrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Integer foodmakerId = 0;
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_orders, container, false);
+
         if(Constant.foodmaker  != null){
             foodmakerId =  Constant.foodmaker.getFoodmakerId();
            // Intent intent = new Intent(MainFragment.this, signin.class);
@@ -85,8 +86,6 @@ public class OrdersFragment extends Fragment {
         orderdishes = new HashMap<>();
 
 
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_orders, container, false);
 
         startAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
 
@@ -224,98 +223,10 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             holder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onItemClick(View v, final int pos) {
-                    Log.d("pos", String.valueOf(pos));
-                    Toast.makeText(context, "Clicked Position =" + pos, Toast.LENGTH_SHORT).show();
 
-//                    Toast.makeText(context, "Pressed Order Item", Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                    alert.setTitle("Accept Order");
-                    alert.setMessage("Do You Want To Acknowledge this Order");
-                    alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            Toast.makeText(context, "Clicked Yes", Toast.LENGTH_SHORT).show();
-
-                           OrderService orderService = ApiUtils.getOrderService();
-                            orderService.updateOrderStatus(2,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() { //2 is acknowledge
-                                @Override
-                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                                    Toast.makeText(context, "Order status changed to 2" , Toast.LENGTH_LONG).show();
-                                    removeAt(pos);
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                                    Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
-                                    Log.d("TAG", "failed" );
-                                }
-                            });
-
-                       //     setOrderStatus(foodmakerOrderList.get(pos).getOrderId());
-                /*Intent myIntent = new Intent(
-                        CameraPhotoCapture.this,
-                        LoginActivity.class);
-                startActivity(myIntent);
-                finish();*/
-
-                        }
-                    });
-
-                    alert.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                           // Toast.makeText(context, "Clicked No", Toast.LENGTH_SHORT).show();
-                            OrderService orderService = ApiUtils.getOrderService();
-                            orderService.updateOrderStatus(4,foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() { //4 is cancel
-                                @Override
-                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                                    Toast.makeText(context, "Order status changed to 4" , Toast.LENGTH_LONG).show();
-                                    removeAt(pos);
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                                    Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
-                                    Log.d("TAG", "failed" );
-                                }
-                            });
-
-                        }
-                    });
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-
-                        }
-                    });
-
-                    alert.show();
-
-
-
-       /*         //INTENT OBJ
-                Intent i=new Intent(context,D.class);
-
-                //ADD DATA TO OUR INTENT
-                i.putExtra("Name",players[position]);
-                i.putExtra("Position",positions[position]);
-                i.putExtra("Image",images[position]);
-
-                //START DETAIL ACTIVITY
-                context.startActivity(i);
-
-                v.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new DetailFragment()).commit();*/
-
-
-                    //  AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                    //  DetailFragment myFragment = new DetailFragment();
-                    // myFragment.setId(movieList.get(position).getFoodmakerId());
-                    // activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+                    showDialog(pos);
                 }
             });
-
-
-
         }
 
         @Override
@@ -323,8 +234,92 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             return foodmakerOrderList.size();
         }
 
+        void showDialog(final int pos) {
 
-        public void removeAt(int position) {
+            List<OrderDish> orderDishList = new ArrayList<>(foodmakerOrderList.get(pos).getOrderdishes());
+            String dishes[] = new String[orderDishList.size()];
+
+            for(int i=0;i<orderDishList.size();i++)
+            {
+                dishes[i] = " " +i+ " : " +orderDishList.get(i).getDishes().getName() + " ^ " + orderDishList.get(i).getQuantity()
+                            + " ^ " + orderDishList.get(i).getDishes().getPrice();
+            }
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+            LayoutInflater inflater = getLayoutInflater();
+            View convertView = (View) inflater.inflate(R.layout.custom, null);
+            alertDialog.setView(convertView);
+            alertDialog.setTitle("Order detail");
+            ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context,R.layout.list_item,R.id.text1,dishes);
+            lv.setAdapter(adapter);
+
+            alertDialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(context, "you have accepted the order", Toast.LENGTH_SHORT).show();
+
+                    OrderService orderService = ApiUtils.getOrderService();
+                    orderService.updateOrderStatus(2, foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                            removeAt(pos);
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                            Toast.makeText(context, "connection problem", Toast.LENGTH_SHORT).show();
+                            Log.d("TAG", "failed");
+                        }
+                    });
+
+                }
+            });
+
+            alertDialog.setNegativeButton("canel order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final AlertDialog.Builder alert_Dialog = new AlertDialog.Builder(context);
+                    alert_Dialog.setTitle("Cancel order");
+                    alert_Dialog.setMessage("are you sure you want to cancel the order?");
+                    alert_Dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(context, "your order is canceled", Toast.LENGTH_SHORT).show();
+                            OrderService orderService = ApiUtils.getOrderService();
+                            orderService.updateOrderStatus(4, foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                    removeAt(pos);
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                    Toast.makeText(context, "connection problem", Toast.LENGTH_SHORT).show();
+                                    Log.d("TAG", "failed");
+                                }
+                            });
+                        }
+                    });
+                    alert_Dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        }
+                    });
+
+                    alert_Dialog.show();
+                }
+            });
+
+
+            alertDialog.show();
+
+        }
+
+
+         void removeAt(int position) {
             foodmakerOrderList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, foodmakerOrderList.size());

@@ -1,8 +1,10 @@
 package com.jayzonsolutions.lunchboxfoodmaker.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -66,6 +68,7 @@ public class MainFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onPageSelected(int position) {
                 Objects.requireNonNull(viewPager.getAdapter()).notifyDataSetChanged();

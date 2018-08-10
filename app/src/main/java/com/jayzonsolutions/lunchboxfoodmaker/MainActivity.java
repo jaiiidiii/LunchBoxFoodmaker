@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -29,11 +31,16 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
     final Context context = this;
     ToggleButton toggleButton;
+    Switch aSwitch;
     FoodmakerService foodmakerServiceMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        // Remove notification bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_main);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,6 +146,12 @@ public class MainActivity extends AppCompatActivity
          * toggle button working
          * end*/
 
+
+        //switch
+      //  setSwitch();
+
+
+
     }
 
     @Override
@@ -219,4 +232,71 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+/*
+    public void setSwitch()
+    {
+       final Switch simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
+*//*        simpleSwitch.setChecked(true);
+        simpleSwitch.setTextOff("Off");
+        simpleSwitch.setTextOn("ON");*//*
+
+
+        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                Integer foodmakerStatus;
+
+                if(simpleSwitch.isChecked())
+                {
+                    foodmakerStatus = 1;
+                    Toast.makeText(getApplication(), "enabled", Toast.LENGTH_SHORT).show();
+
+                    foodmakerServiceMain = ApiUtils.getFoodmakerService();
+                    foodmakerServiceMain.updateFoodmakerStatus(Constant.foodmaker.getFoodmakerId(),foodmakerStatus).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                }
+                else
+                {
+
+                    foodmakerStatus = 2;
+                    Toast.makeText(getApplication(), "disabled", Toast.LENGTH_SHORT).show();
+
+                    foodmakerServiceMain = ApiUtils.getFoodmakerService();
+                    foodmakerServiceMain.updateFoodmakerStatus(Constant.foodmaker.getFoodmakerId(),foodmakerStatus).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }*/
 }

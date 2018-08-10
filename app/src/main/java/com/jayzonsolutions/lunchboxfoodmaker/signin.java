@@ -29,7 +29,7 @@ public class signin extends AppCompatActivity {
 
     ImageView sback;
     MyTextView login;
-    String DeviceID;
+    String DeviceID = "not found";
     MyEditText userEmail;
     MyEditText userPassword;
     final Context context = this;
@@ -57,7 +57,9 @@ public class signin extends AppCompatActivity {
         session = new SessionManager(context);*/
 
         foodmakerService = ApiUtils.getFoodmakerService();
+       /*
         displayFirebaseRegId();
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,9 +111,11 @@ public class signin extends AppCompatActivity {
                 startActivity(intent);
 */
 
-
+/*
             }
-        });
+        }); */
+        Intent intent = new Intent(signin.this,MainActivity.class);
+        startActivity(intent);
 
         sback.setOnClickListener(new View.OnClickListener() {
             @Override

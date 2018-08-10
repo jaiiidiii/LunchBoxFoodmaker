@@ -73,12 +73,12 @@ public class AckOrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //create this screen orderDishes list
-        orderdishes = new HashMap<>();
 
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_orders, container, false);
+        //create this screen orderDishes list
+        orderdishes = new HashMap<>();
 
         startAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.bounce);
 
@@ -87,7 +87,7 @@ public class AckOrdersFragment extends Fragment {
         foodmakerOrderList = new ArrayList<>();
         categories = new Categories();
         categories.productsArrayList = new ArrayList<>();
-  //      mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+        mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
         recyclerView = view.findViewById(R.id.recyclerview);
 
 
@@ -95,7 +95,7 @@ public class AckOrdersFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
- //       recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
         foodmakerService = ApiUtils.getFoodmakerService();
 
 /**
@@ -110,9 +110,9 @@ public class AckOrdersFragment extends Fragment {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
                 foodmakerOrderList = response.body();
-             //   mAdapter.setfoodmakerOrderList(foodmakerOrderList);
-                mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
-                recyclerView.setAdapter(mAdapter);
+                mAdapter.setfoodmakerOrderList(foodmakerOrderList);
+              //  mAdapter = new RecycleAdapter_AddProduct(getActivity(), foodmakerOrderList);
+              //  recyclerView.setAdapter(mAdapter);
 
 
             }

@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="LoginActivity" />
+            android:label="LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".signup" />
         <activity android:name=".signin" />
         <activity
