@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     ToggleButton toggleButton;
     Switch aSwitch;
     FoodmakerService foodmakerServiceMain;
+    com.rey.material.widget.Switch activation_switch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         /*
          * toggle button working
                 * start*/
-        toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
+/*        toggleButton = (ToggleButton) findViewById(R.id.toggleButton);
 
         if(Constant.foodmaker != null){
             if(Constant.foodmaker.getFoodmakerActive() == 1){
@@ -141,7 +142,39 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
             }
+        });*/
+        final Integer foodmakerStatus = 2;
+        activation_switch =  findViewById(R.id.activation_switch);
+        activation_switch.setOnCheckedChangeListener(new com.rey.material.widget.Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(com.rey.material.widget.Switch view, boolean checked) {
+                if(checked){
+                    Integer foodmakerStatus = 1;
+                    Toast.makeText(getApplication(), "enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    Integer foodmakerStatus = 2;
+                    Toast.makeText(getApplication(), "disabled", Toast.LENGTH_SHORT).show();
+                }
+                foodmakerServiceMain = ApiUtils.getFoodmakerService();
+                foodmakerServiceMain.updateFoodmakerStatus(1,foodmakerStatus).enqueue(new Callback<String>() { //email:foodmakernew@gmail.com pass:testtest
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+            }
         });
+
+
+
+
+
+
         /**
          * toggle button working
          * end*/
