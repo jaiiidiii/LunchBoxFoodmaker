@@ -66,6 +66,12 @@ public class AddDish extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(Constant.foodmaker == null){
+                Intent in = new Intent(getActivity(),signin.class);
+                startActivity(in);
+        }
+        Integer foodmakerId = Constant.foodmaker.getFoodmakerId();
+
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_add_dish, container, false);
 
@@ -171,6 +177,7 @@ public class AddDish extends Fragment {
             @Override
             public void onClick(View v)
             {
+                Integer foodmakerId = Constant.foodmaker.getFoodmakerId();
 
                 String dishNameData =  dishName.getText().toString();
                 String dishDescriptionData =  dishDescription.getText().toString();
@@ -185,7 +192,11 @@ public class AddDish extends Fragment {
                 foodmakerDishes.setName(dishNameData);
                 foodmakerDishes.setDescription(dishDescriptionData);
                 foodmakerDishes.setDishId(selectedItemId);
-                foodmakerDishes.setFoodmakerid(1); //set default foodmaker id
+              //  String imagePath = Constant.IMAGEPATH+"no_image_avaible.jpeg";
+
+                String imagePath = Constant.IMAGEPATH+"catering-chef-clipart-1.jpg";
+                foodmakerDishes.setImagepath(imagePath);
+                foodmakerDishes.setFoodmakerid(foodmakerId); //set default foodmaker id
                 foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
 
 
@@ -193,8 +204,8 @@ public class AddDish extends Fragment {
                     @Override
                     public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
 
-                        Toast.makeText(context,""+response.body().getStatus(),Toast.LENGTH_LONG).show();
-                        Intent it = new Intent(context,LoginActivity.class);
+                    //    Toast.makeText(context,""+response.body().getStatus(),Toast.LENGTH_LONG).show();
+                        Intent it = new Intent(context,MainActivity.class);
                         startActivity(it);
                     }
 

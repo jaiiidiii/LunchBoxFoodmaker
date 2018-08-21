@@ -44,6 +44,12 @@ public class signin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
+        if(Constant.foodmaker != null){
+            Intent in =new Intent(this,MainActivity.class);
+            startActivity(in);
+        }
+
+
         sback = findViewById(R.id.sinb);
         login = findViewById(R.id.sin);
 
@@ -57,7 +63,7 @@ public class signin extends AppCompatActivity {
         session = new SessionManager(context);*/
 
         foodmakerService = ApiUtils.getFoodmakerService();
-       /*
+
         displayFirebaseRegId();
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +72,9 @@ public class signin extends AppCompatActivity {
                 if(validate()){
                     MyEditText email = (MyEditText)findViewById(R.id.userEmail);
                     MyEditText pass = (MyEditText)findViewById(R.id.userPassword);
-                    foodmakerService.foodmakerLogin(email.getText().toString(), pass.getText().toString(),DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                  //  foodmakerService.foodmakerLogin(email.getText().toString(), pass.getText().toString(),DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                    foodmakerService.foodmakerLogin("amir@gmail.com", "27146",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+
                         @Override
                         public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
 
@@ -105,18 +113,18 @@ public class signin extends AppCompatActivity {
                 startActivity(myIntent);
 
 
-                */
 
-               /* Intent intent = new Intent(signin.this,MainActivity.class);
-                startActivity(intent);
 */
+               /* Intent intent = new Intent(signin.this,MainActivity.class);
+                startActivity(intent);*/
 
-/*
+
+
             }
-        }); */
-        Intent intent = new Intent(signin.this,MainActivity.class);
+        });
+        /*Intent intent = new Intent(signin.this,MainActivity.class);
         startActivity(intent);
-
+*/
         sback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -169,6 +177,15 @@ public class signin extends AppCompatActivity {
             Toast.makeText(this, "Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Constant.foodmaker != null){
+            Intent in =new Intent(this,MainActivity.class);
+            startActivity(in);
+        }
+    }
 }
 
 

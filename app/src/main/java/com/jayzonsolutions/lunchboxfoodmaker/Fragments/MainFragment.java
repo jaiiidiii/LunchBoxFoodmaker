@@ -26,12 +26,17 @@ public class MainFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private int[] tabIcons = {
+    /*private int[] tabIcons = { // this is not supported on api23
             R.drawable.ic_message,
             R.drawable.ic_message,
             R.drawable.ic_message
-    };
+    };*/
 
+    private int[] tabIcons = {
+            R.drawable.ic_menu_send,
+            R.drawable.ic_menu_send,
+            R.drawable.ic_menu_send
+    };
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +51,7 @@ public class MainFragment extends Fragment {
 
         tabLayout = v.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+      //  setupTabIcons();
 
 
 

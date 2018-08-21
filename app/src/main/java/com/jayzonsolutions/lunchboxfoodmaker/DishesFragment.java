@@ -3,6 +3,7 @@ package com.jayzonsolutions.lunchboxfoodmaker;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -68,7 +69,10 @@ public class DishesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
+        if(Constant.foodmaker == null){
+            Intent in = new Intent(getActivity(),signin.class);
+            startActivity(in);
+        }
         View v = inflater.inflate(R.layout.fragment_dishes, container, false);
 
 
@@ -105,10 +109,10 @@ public class DishesFragment extends Fragment {
 
         super.onResume();
         context = getActivity();
-
+        Integer foodmakerId = Constant.foodmaker.getFoodmakerId();
 
         foodmakerService = ApiUtils.getFoodmakerService();
-        foodmakerService.getDishesByFoodmakerId(1).enqueue(new Callback<List<FoodmakerDishes>>() {
+        foodmakerService.getDishesByFoodmakerId(foodmakerId).enqueue(new Callback<List<FoodmakerDishes>>() {
             @Override
             public void onResponse(@NonNull Call<List<FoodmakerDishes>> call, @NonNull Response<List<FoodmakerDishes>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();

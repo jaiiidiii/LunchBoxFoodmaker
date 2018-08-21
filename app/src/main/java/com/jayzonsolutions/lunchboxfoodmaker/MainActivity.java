@@ -1,6 +1,9 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,8 +12,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -21,6 +27,7 @@ import android.widget.ToggleButton;
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.MainFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.OrdersFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
+import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 
 import retrofit2.Call;
@@ -143,23 +150,44 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         });*/
-        final Integer foodmakerStatus = 2;
+
+
+
+
+
+
         activation_switch =  findViewById(R.id.activation_switch);
+
+      /*  if(Constant.foodmaker != null){
+            if(Constant.foodmaker.getFoodmakerActive() == 1){
+                activation_switch.setChecked(true);
+            }else{
+                activation_switch.setChecked(false);
+            }
+
+
+        }
+*/
+
+
         activation_switch.setOnCheckedChangeListener(new com.rey.material.widget.Switch.OnCheckedChangeListener() {
+
+            Integer foodmakerStatus = Constant.foodmaker.getFoodmakerActive();
+
             @Override
             public void onCheckedChanged(com.rey.material.widget.Switch view, boolean checked) {
                 if(checked){
-                    Integer foodmakerStatus = 1;
-                    Toast.makeText(getApplication(), "enabled", Toast.LENGTH_SHORT).show();
+                     foodmakerStatus = 1;
+                    Toast.makeText(getApplication(), "Active", Toast.LENGTH_SHORT).show();
                 } else {
-                    Integer foodmakerStatus = 2;
-                    Toast.makeText(getApplication(), "disabled", Toast.LENGTH_SHORT).show();
+                     foodmakerStatus = 2;
+                    Toast.makeText(getApplication(), "Un Active", Toast.LENGTH_SHORT).show();
                 }
                 foodmakerServiceMain = ApiUtils.getFoodmakerService();
                 foodmakerServiceMain.updateFoodmakerStatus(1,foodmakerStatus).enqueue(new Callback<String>() { //email:foodmakernew@gmail.com pass:testtest
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-
+                        Constant.foodmaker.setFoodmakerActive(foodmakerStatus);
                     }
 
                     @Override
@@ -169,6 +197,7 @@ public class MainActivity extends AppCompatActivity
                 });
             }
         });
+
 
 
 
@@ -246,6 +275,25 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+            LayoutInflater inflater = getLayoutInflater();
+            View convertView = (View) inflater.inflate(R.layout.custom, null);
+            alertDialog.setView(convertView);
+            alertDialog.setTitle("Logout");
+            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(context, "Are you sure you wish to logout?", Toast.LENGTH_SHORT).show();
+
+                  Constant.foodmaker = null;
+                  Intent in = new Intent(MainActivity.this,signin.class);
+                  startActivity(in);
+
+                }
+            });
+
+            alertDialog.show();
+
             // Clear the session data
             // This will clear all session data and
             // redirect user to LoginActivity
@@ -253,13 +301,12 @@ public class MainActivity extends AppCompatActivity
 
             Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();*/
 
-        }/*else if(id == R.id.test){
+        }else if(id == R.id.nav_profile){
 
+            Intent in1 = new Intent(MainActivity.this,UserProfile.class);
+            startActivity(in1);
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new DishesFragment()).commit();
-
-        }*/
+        }
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

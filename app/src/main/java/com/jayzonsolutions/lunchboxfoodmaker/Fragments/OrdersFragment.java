@@ -112,8 +112,12 @@ public class OrdersFragment extends Fragment {
  ** call to get foodmaker dishes **/
 
         foodmakerService = ApiUtils.getFoodmakerService();
+        Integer foodmakerId =  Constant.foodmaker.getFoodmakerId();
+        if(foodmakerId == null ||foodmakerId == 0){
+            foodmakerId = 0;
+        }
 
-        foodmakerService.getOrdersByFoodmakerId(8).enqueue(new Callback<List<Order>>() { //foodmakerId
+        foodmakerService.getOrdersByFoodmakerId(foodmakerId).enqueue(new Callback<List<Order>>() { //foodmakerId
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
@@ -199,12 +203,14 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
             }
 
 
-//            holder.price.setText("900");
 
+//            holder.price.setText("900");
 
 
             holder.quantity = 1;
             holder.quantity = foodmakerOrderList.get(position).getOrderdishes().size();
+
+
             //   holder.quantity = categories.getProductsArrayList().get(position).getQuantity();
           //  int totalPrice = holder.quantity * foodmakerOrderList.get(position).getDish().getDishSellingPrice();
 
@@ -218,6 +224,7 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
 
 
             //       categories.getProductsArrayList().get(position).setPriceAsPerQuantity("" + totalPrice);
+
 
 
             holder.setItemClickListener(new ItemClickListener() {
@@ -241,8 +248,8 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
 
             for(int i=0;i<orderDishList.size();i++)
             {
-                dishes[i] = " " +i+ " : " +orderDishList.get(i).getDishes().getName() + " ^ " + orderDishList.get(i).getQuantity()
-                            + " ^ " + orderDishList.get(i).getDishes().getPrice();
+                dishes[i] = " " +i+ ") Dish Name : " +orderDishList.get(i).getDishes().getName() + " , Quantity : " + orderDishList.get(i).getQuantity()
+                            + " , Price :  " + orderDishList.get(i).getDishes().getPrice();
             }
 
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);

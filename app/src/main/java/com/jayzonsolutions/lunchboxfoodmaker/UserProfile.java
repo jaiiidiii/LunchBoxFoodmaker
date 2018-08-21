@@ -111,6 +111,8 @@ public class UserProfile extends AppCompatActivity {
                     Address address = new Address(""+userAddress.getText().toString(), "  Karachi");
                     foodmaker.setFoodmakerAddresId(address);
                 }
+                foodmaker.setFoodmakerCreatedAt(null);
+                foodmaker.setFoodmakerLastUpdated(null);
 
 
 

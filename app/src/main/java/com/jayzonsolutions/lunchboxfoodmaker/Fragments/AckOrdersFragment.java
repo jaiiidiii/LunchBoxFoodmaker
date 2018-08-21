@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
+import com.jayzonsolutions.lunchboxfoodmaker.Constant;
 import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.ItemClickListener;
@@ -103,8 +104,11 @@ public class AckOrdersFragment extends Fragment {
  ** call to get foodmaker dishes **/
 
         foodmakerService = ApiUtils.getFoodmakerService();
-
-        foodmakerService.getAckOrdersByFoodmakerId(1).enqueue(new Callback<List<Order>>() {
+        Integer foodmakerId =  Constant.foodmaker.getFoodmakerId();
+        if(foodmakerId == null ||foodmakerId == 0){
+            foodmakerId = 0;
+        }
+        foodmakerService.getAckOrdersByFoodmakerId(foodmakerId).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
                 Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
