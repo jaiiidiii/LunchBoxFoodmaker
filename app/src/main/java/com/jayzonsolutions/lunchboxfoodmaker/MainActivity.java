@@ -4,9 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,16 +27,27 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.MainFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.Fragments.OrdersFragment;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.OrderService;
 import com.jayzonsolutions.lunchboxfoodmaker.model.Foodmaker;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +59,9 @@ public class MainActivity extends AppCompatActivity
     Switch aSwitch;
     FoodmakerService foodmakerServiceMain;
     com.rey.material.widget.Switch activation_switch;
+    ImageView selectImage;
+    TextView foodmakerName;
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +73,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
   //      session = new SessionManager(context);
 //        HashMap<String, String> User = session.getUserDetails();
@@ -108,6 +128,52 @@ public class MainActivity extends AppCompatActivity
                     new MainFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_orders);
         }
+
+
+        View  headerLayout = navigationView.getHeaderView(0);
+        /* navigationView.inflateHeaderView(R.layout.nav_header);*/
+        selectImage = headerLayout.findViewById(R.id.select_img);
+        foodmakerName = headerLayout.findViewById(R.id.foodmaker_name);
+        String strRatting = ((Constant.foodmaker.getAverageRatings() == null)?"":"("+Constant.foodmaker.getAverageRatings()+")" );
+        foodmakerName.setText(""+Constant.foodmaker.getFoodmakerName()+" "+strRatting);
+        /***
+         * image working
+         */
+        if(Constant.foodmaker.getFoodmakerImagePath().length() > 21){
+            String imagePath = Constant.foodmaker.getFoodmakerImagePath();;
+
+
+            Glide.with(this).load(ApiUtils.BASE_URL+(imagePath.substring(21))).
+                    apply(RequestOptions.
+                            centerCropTransform().fitCenter().
+                            diskCacheStrategy(DiskCacheStrategy.ALL)).
+                    into(selectImage);
+        }
+
+
+
+
+        selectImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
+
+        /***
+         * image working end
+         */
+
+
+
+
+
         /*
          * toggle button working
                 * start*/
@@ -258,8 +324,6 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new MainFragment()).commit();
 
-        } else if (id == R.id.nav_dishes) {
-
         } else if (id == R.id.nav_addDishes) {
             AddDish myFragment = new AddDish();
             myFragment.setFoodmakerDish(null);
@@ -379,4 +443,108 @@ public class MainActivity extends AppCompatActivity
 
 
     }*/
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+
+        String[] permissions = {"android.permission.READ_EXTERNAL_STORAGE"};
+        ActivityCompat.requestPermissions(this, permissions, 1); // without sdk version check
+        if(isPermissionGranted()){
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = this.getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            String picturePath = null;
+            if( cursor == null){
+                picturePath =  selectedImage.getPath();
+            }else{
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                picturePath = cursor.getString(columnIndex);
+                cursor.close();
+            }
+
+
+            ImageView imageView = (ImageView) findViewById(R.id.select_img);
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+           // customerService = ApiUtils.getCustomerService();
+            File file = new File(picturePath);
+               /* RequestBody requestFile =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
+*/
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+            MultipartBody.Part body =
+                    MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+
+          /*  if(file.exists()){
+                customerService.uploadUserImage(1,body).enqueue(new Callback<ResponseBody>() {
+                    // mAPIService.savePost(useremail.getText().toString(), userpass.getText().toString(),DeviceID).enqueue(new Callback<Customer>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                        if(response.body() == null){
+                        }else{
+                        }
+
+
+
+                        //
+                    }
+                    @Override
+                    public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+
+                    }
+                });
+            }*/
+
+
+
+        }
+
+
+
+    }
+
+
+}
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // save file
+
+                /*File imgFile = new  File("/storage/emulated/0/DCIM/Camera/IMG_20180812_172935709.jpg");
+
+                if(imgFile.exists()){
+
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                   selectImage.setImageBitmap(myBitmap);
+
+                }*/
+
+            } else {
+                Toast.makeText(getApplicationContext(), "PERMISSION_DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public boolean isPermissionGranted() {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission("android.permission.READ_EXTERNAL_STORAGE")  == PackageManager.PERMISSION_GRANTED){
+                Log.v("permission", "Permission is granted");
+                return true;
+            }
+
+
+        }
+        return false;
+    }
 }

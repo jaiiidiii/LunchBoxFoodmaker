@@ -251,6 +251,16 @@ public class AckOrdersFragment extends Fragment {
 
                 }
             });
+            alert.setNeutralButton("Request For Rider",
+                    new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            // User pressed No button. Write Logic Here
+                            Toast.makeText(getActivity(),
+                                    "Request For Rider", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    });
 
             alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView sin,imageSelect;
+    TextView sin;
     LinearLayout circle;
 
 
@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
         circle = findViewById(R.id.circle);
         sin = findViewById(R.id.sin);
-        imageSelect = findViewById(R.id.selectImage);
+
 
         circle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,14 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        imageSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent it = new Intent(LoginActivity.this,CameraPhotoCapture.class);
-                Intent it = new Intent(LoginActivity.this,TestActivty.class);
-                startActivity(it);
-            }
-        });
+
 
 
     }

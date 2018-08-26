@@ -258,7 +258,16 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
 
                         }
                     });
+                    alert.setNeutralButton("Request For Rider",
+                            new DialogInterface.OnClickListener() {
 
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // User pressed No button. Write Logic Here
+                                    Toast.makeText(getActivity(),
+                                            "Request For Rider", Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            });
                     alert.show();
 
 
