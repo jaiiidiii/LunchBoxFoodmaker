@@ -43,10 +43,15 @@ public class Order {
     @SerializedName("foodmaker")
     @Expose
     private Foodmaker foodmaker;
-
     @SerializedName("orderRating")
     @Expose
     private Integer orderRating;
+    @SerializedName("latitude")
+    @Expose
+    private Double latitude;
+    @SerializedName("longitude")
+    @Expose
+    private Double longitude;
 
     public Integer getOrderId() {
         return orderId;
@@ -150,5 +155,21 @@ public class Order {
 
     public void setOrderRating(Integer orderRating) {
         this.orderRating = orderRating;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
