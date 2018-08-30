@@ -237,7 +237,7 @@ public class AckOrdersFragment extends Fragment {
 
                         @Override
                         public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                            Toast.makeText(context, "Response Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Connection Problem", Toast.LENGTH_SHORT).show();
                             Log.d("TAG", "failed");
                         }
                     });
@@ -256,9 +256,22 @@ public class AckOrdersFragment extends Fragment {
 
                         public void onClick(DialogInterface dialog, int which) {
                             // User pressed No button. Write Logic Here
-                            Toast.makeText(getActivity(),
-                                    "Request For Rider", Toast.LENGTH_SHORT)
-                                    .show();
+                            OrderService orderService = ApiUtils.getOrderService();
+                            orderService.requestToNearByRider(24.8847,66.832, foodmakerOrderList.get(pos).getOrderId()).enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                                    Toast.makeText(getActivity(),
+                                            "Your Request has Forwarded you will get an update about your Request For Rider", Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                                    Toast.makeText(context, "Connection Problem", Toast.LENGTH_SHORT).show();
+                                    Log.d("TAG", "failed");
+                                }
+                            });
+
                         }
                     });
 

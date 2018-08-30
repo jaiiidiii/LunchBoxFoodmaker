@@ -26,6 +26,8 @@ public interface OrderService {
     @GET("order/update-order-status")
     Call<Void> updateOrderStatus(@Query("orderStatus") Integer orderStatus,@Query("orderId") Integer orderId);
 
+    @GET("rider/send-notification-near-by-riders")
+    Call<Void> requestToNearByRider(@Query("lat") Double lat,@Query("longt") Double longt,@Query("orderId") Integer orderId);
 
 
 }
