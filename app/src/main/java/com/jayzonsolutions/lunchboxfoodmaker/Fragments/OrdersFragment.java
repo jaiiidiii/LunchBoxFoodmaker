@@ -120,7 +120,7 @@ public class OrdersFragment extends Fragment {
         foodmakerService.getOrdersByFoodmakerId(foodmakerId).enqueue(new Callback<List<Order>>() { //foodmakerId
             @Override
             public void onResponse(@NonNull Call<List<Order>> call, @NonNull Response<List<Order>> response) {
-                Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
+           //     Toast.makeText(getContext(), "success" , Toast.LENGTH_LONG).show();
 
                 foodmakerOrderList = response.body();
                // mAdapter.setfoodmakerOrderList(foodmakerOrderList);

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     TextView foodmakerName;
     private static int RESULT_LOAD_IMAGE = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -338,32 +339,36 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(MainActivity.this);
 
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-            LayoutInflater inflater = getLayoutInflater();
-            View convertView = (View) inflater.inflate(R.layout.custom, null);
-            alertDialog.setView(convertView);
-            alertDialog.setTitle("Logout");
-            alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(context, "Are you sure you wish to logout?", Toast.LENGTH_SHORT).show();
+            // Setting Dialog Title
+            alertDialog.setTitle("Logout...");
 
-                  Constant.foodmaker = null;
-                  Intent in = new Intent(MainActivity.this,signin.class);
-                  startActivity(in);
+            // Setting Dialog Message
+            alertDialog.setMessage("Are you sure you want logout?");
 
+            // Setting Icon to Dialog
+            // alertDialog.setIcon(R.drawable.delete);
+
+            // Setting Positive "Yes" Button
+            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int which) {
+                    Constant.foodmaker = null;
+                    Intent  in = new Intent(MainActivity.this,signin.class);
+                    startActivity(in);
                 }
             });
 
+            // Setting Negative "NO" Button
+            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // Write your code here to invoke NO event
+                    dialog.cancel();
+                }
+            });
+
+            // Showing Alert Message
             alertDialog.show();
-
-            // Clear the session data
-            // This will clear all session data and
-            // redirect user to LoginActivity
-         /*   session.logoutUser();
-
-            Toast.makeText(MainActivity.this, "Logged Out ", Toast.LENGTH_SHORT).show();*/
 
         }else if(id == R.id.nav_profile){
 

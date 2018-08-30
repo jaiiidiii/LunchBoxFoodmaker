@@ -1,6 +1,8 @@
 package com.jayzonsolutions.lunchboxfoodmaker;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -62,6 +65,7 @@ public class AddDish extends Fragment {
     private static final int SELECT_PICTURE = 0;
     private ImageView imageView;
 
+
     public static int selectedItemId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,8 +92,18 @@ public class AddDish extends Fragment {
         // Spinner element
         spinner =  v.findViewById(R.id.dishCatSpinner);
         // Spinner click listener
+/*
 
+        setImage =  v.findViewById(R.id.setImage);
 
+        setImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+*/
 
 
 

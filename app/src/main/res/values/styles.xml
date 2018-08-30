@@ -42,6 +42,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="MaterialSwitch">
         <item name="sw_trackSize">30dp</item>
         <item name="sw_trackCap">round</item>

@@ -39,5 +39,6 @@
     <string name="default_notification_channel_id">Channel ID</string>
     <string name="nothing_to_display">Nothing To Display</string>
     <string name="title_activity_user_profile">UserProfile</string>
+    <string name="title_activity_billing_details">BillingDetails</string>
 
 </resources>
