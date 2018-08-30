@@ -3,6 +3,7 @@ package com.jayzonsolutions.lunchboxfoodmaker.Fragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jayzonsolutions.lunchboxfoodmaker.ApiUtils;
+import com.jayzonsolutions.lunchboxfoodmaker.BillingDetails;
 import com.jayzonsolutions.lunchboxfoodmaker.Constant;
 import com.jayzonsolutions.lunchboxfoodmaker.R;
 import com.jayzonsolutions.lunchboxfoodmaker.Service.FoodmakerService;
@@ -281,6 +283,17 @@ if(foodmakerOrderList.get(position).getCustomer() == null){
                         }
                     });
 
+                }
+            });
+
+            alertDialog.setNeutralButton("Review Order", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    BillingDetails.setOrderId(foodmakerOrderList.get(pos).getOrderId());
+
+                    Intent in = new Intent(getActivity(), BillingDetails.class);
+                    startActivity(in);
                 }
             });
 
