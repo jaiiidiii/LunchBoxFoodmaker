@@ -122,7 +122,9 @@ public class UserProfile extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                Foodmaker foodmaker = Constant.foodmaker;
+                Foodmaker foodmaker1 = Constant.foodmaker;
+                Foodmaker foodmaker = new Foodmaker();
+                foodmaker.setFoodmakerId(foodmaker1.getFoodmakerId());
                 foodmaker.setFoodmakerName(""+dispName.getText().toString());
                 foodmaker.setFoodmakerEmail(""+dispEmail.getText().toString());
                 foodmaker.setFoodmakerPhoneNumber(""+userPhone.getText().toString());

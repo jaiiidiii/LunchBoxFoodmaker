@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -75,6 +76,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if(Constant.foodmaker == null){
+            Intent in = new Intent(MainActivity.this,signin.class);
+            startActivity(in);
+        }
+
   //      session = new SessionManager(context);
 //        HashMap<String, String> User = session.getUserDetails();
     //    final GlobalVariables g = GlobalVariables.GetInstance();
@@ -135,8 +141,8 @@ public class MainActivity extends AppCompatActivity
         /* navigationView.inflateHeaderView(R.layout.nav_header);*/
         selectImage = headerLayout.findViewById(R.id.select_img);
         foodmakerName = headerLayout.findViewById(R.id.foodmaker_name);
-        String strRatting = ((Constant.foodmaker.getAverageRatings() == null)?"":"("+Constant.foodmaker.getAverageRatings()+")" );
-        foodmakerName.setText(""+Constant.foodmaker.getFoodmakerName()+" "+strRatting);
+   //     String strRatting = ((Constant.foodmaker.getAverageRatings() == null)?"":"("+Constant.foodmaker.getAverageRatings()+")" );
+//        foodmakerName.setText(""+Constant.foodmaker.getFoodmakerName());
         /***
          * image working
          */
@@ -551,5 +557,13 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         }
         return false;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(Constant.foodmaker == null){
+            Intent in =new Intent(this,signin.class);
+            startActivity(in);
+        }
     }
 }

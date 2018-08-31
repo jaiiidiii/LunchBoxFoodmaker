@@ -16,5 +16,5 @@ public interface FoodmakerDishesService {
 //    Call<List<FoodmakerDishes>> getDishList();
 
     @POST("foodmaker_dishes/add-dish")
-    Call<ApiResponse> addFoodmakerDishes(@Body FoodmakerDishes foodmakerDishes);
+    Call<String> addFoodmakerDishes(@Body FoodmakerDishes foodmakerDishes);
 }

@@ -137,7 +137,7 @@ public class AddDish extends Fragment {
 
                 @Override
                 public void onFailure(@NonNull Call<List<Dish>> call, @NonNull Throwable t) {
-                    Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Connection Problem ",Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -196,27 +196,29 @@ public class AddDish extends Fragment {
                 String dishNameData =  dishName.getText().toString();
                 String dishDescriptionData =  dishDescription.getText().toString();
                 String dishPriceData = dishPrice.getText().toString();
-                FoodmakerDishes foodmakerDishes;
+                FoodmakerDishes foodmakerDishes1,foodmakerDishes;
+                foodmakerDishes1 =new FoodmakerDishes();
                 if(getFoodmakerDish() != null){
                      foodmakerDishes = getFoodmakerDish();
-                 }else{
-                     foodmakerDishes =new FoodmakerDishes();
-
+                    foodmakerDishes1.setFoodmakerDishesId(foodmakerDishes.getFoodmakerDishesId());
                 }
-                foodmakerDishes.setName(dishNameData);
-                foodmakerDishes.setDescription(dishDescriptionData);
-                foodmakerDishes.setDishId(selectedItemId);
-              //  String imagePath = Constant.IMAGEPATH+"no_image_avaible.jpeg";
 
-                String imagePath = Constant.IMAGEPATH+"catering-chef-clipart-1.jpg";
-                foodmakerDishes.setImagepath(imagePath);
-                foodmakerDishes.setFoodmakerid(foodmakerId); //set default foodmaker id
-                foodmakerDishes.setPrice(Double.parseDouble(dishPriceData));
+                    foodmakerDishes1.setName(dishNameData);
+                    foodmakerDishes1.setDescription(dishDescriptionData);
+                    foodmakerDishes1.setDishId(selectedItemId);
+                    //  String imagePath = Constant.IMAGEPATH+"no_image_avaible.jpeg";
+
+                    String imagePath = Constant.IMAGEPATH+"catering-chef-clipart-1.jpg";
+                    foodmakerDishes1.setImagepath(imagePath);
+                    foodmakerDishes1.setFoodmakerid(foodmakerId); //set default foodmaker id
+                    foodmakerDishes1.setPrice(Double.parseDouble(dishPriceData));
 
 
-                foodmakerDishesService.addFoodmakerDishes(foodmakerDishes).enqueue(new Callback<ApiResponse>() {
+
+
+                foodmakerDishesService.addFoodmakerDishes(foodmakerDishes1).enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
+                    public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
 
                     //    Toast.makeText(context,""+response.body().getStatus(),Toast.LENGTH_LONG).show();
                         Intent it = new Intent(context,MainActivity.class);
@@ -224,9 +226,10 @@ public class AddDish extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(@NonNull Call<ApiResponse> call, @NonNull Throwable t) {
-                        Toast.makeText(context,"failed ",Toast.LENGTH_LONG).show();
-
+                    public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                       // Toast.makeText(context,"Connection Problem ",Toast.LENGTH_LONG).show();
+                        Intent it = new Intent(context,MainActivity.class);
+                        startActivity(it);
                     }
                 });
             }

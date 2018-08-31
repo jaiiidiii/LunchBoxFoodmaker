@@ -186,14 +186,12 @@ android:background="@drawable/newimg">
             android:layout_marginStart="22dp"
             android:background="#0000"
             android:hint="@string/hint_dishDescription"
-
-            android:maxLines="7"
-            android:scrollbars="vertical"
-
+            android:inputType="text"
             android:padding="16dp"
             android:textColor="@color/textColor"
             android:textColorHint="@color/textColor"
             android:textSize="16sp" />
+
 
         <View
             android:layout_width="match_parent"
