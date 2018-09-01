@@ -70,10 +70,15 @@ public class signin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validate()){
-                    MyEditText email = (MyEditText)findViewById(R.id.userEmail);
-                    MyEditText pass = (MyEditText)findViewById(R.id.userPassword);
+                   /* MyEditText email = (MyEditText)findViewById(R.id.userEmail);
+                    MyEditText pass = (MyEditText)findViewById(R.id.userPassword);*/
                   //  foodmakerService.foodmakerLogin(email.getText().toString(), pass.getText().toString(),DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
-                    foodmakerService.foodmakerLogin("foodmaker1@gmail.com", "1234",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                    String userEmailStr = userEmail.getText().toString();
+                    String userPasswordStr = userPassword.getText().toString();
+
+              //      foodmakerService.foodmakerLogin("foodmaker1@gmail.com", "1234",DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+                    foodmakerService.foodmakerLogin(userEmailStr, userPasswordStr,DeviceID).enqueue(new Callback<Foodmaker>() { //email:foodmakernew@gmail.com pass:testtest
+
 
                         @Override
                         public void onResponse(Call<Foodmaker> call, Response<Foodmaker> response) {
